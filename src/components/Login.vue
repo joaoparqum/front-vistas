@@ -41,14 +41,23 @@
         <a-button :disabled="disabled" type="primary" html-type="submit" class="login-form-button">
           Entrar
         </a-button>
-        Or
-        <a href="">Registre-se agora!</a>
+        Ou
+        <a @click="navegarParaCriarUsuario()">Registre-se agora!</a>
       </a-form-item>
     </a-form>
   </template>
+
   <script lang="ts" setup>
   import { reactive, computed } from 'vue';
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
+
+  const navegarParaCriarUsuario = () => {
+      router.push('/TelaCriaUsuario');
+  };
+
   interface FormState {
     username: string;
     password: string;
@@ -70,15 +79,16 @@
     return !(formState.username && formState.password);
   });
   </script>
+
   <style scoped>
-  #components-form-demo-normal-login .login-form {
-    max-width: 300px;
-  }
-  #components-form-demo-normal-login .login-form-forgot {
-    float: right;
-  }
-  #components-form-demo-normal-login .login-form-button {
-    width: 100%;
-  }
+    #components-form-demo-normal-login .login-form {
+      max-width: 300px;
+    }
+    #components-form-demo-normal-login .login-form-forgot {
+      float: right;
+    }
+    #components-form-demo-normal-login .login-form-button {
+      width: 100%;
+    }
   </style>
   

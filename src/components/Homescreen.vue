@@ -12,8 +12,10 @@
       <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
         <h1>Seja bem vindo ás Vistas Explodidas de Equipamentos!</h1>
         <br><br>
-        <Login/>
-        <Carrosel/>
+
+          <Login/>
+          <Carrosel/>
+        
       </div>
     </a-layout-content>
     <a-layout-footer :style="{ textAlign: 'center' }">
@@ -24,7 +26,7 @@
 
 <script lang="ts" setup>
   import Carrosel from './Carrosel.vue';
-import Login from './Login.vue';
+  import Login from './Login.vue';
 </script>
 
 <style scoped>
@@ -42,5 +44,6 @@ import Login from './Login.vue';
   [data-theme='dark'] .site-layout .site-layout-background {
     background: #141414;
   }
+
 </style>
 

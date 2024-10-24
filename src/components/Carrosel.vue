@@ -1,23 +1,34 @@
 <template>
-    <a-carousel autoplay>
-      <div><img src="/casa-logo.jpg" alt="Logo" /></div>
-      <div><h3>2</h3></div>
-      <div><h3>3</h3></div>
-      <div><h3>4</h3></div>
-    </a-carousel>
-  </template>
-  
-  <style scoped>
-  /* For demo */
+  <a-carousel autoplay>
+    <div>
+      <h3 style="color: white">
+        <a href="https://casadoconstrutor.com.br/pt-br" target="_blank">Casa do Construtor</a>
+      </h3>
+    </div>
+    <div class="carousel-item">
+      <img src="/logo-maior.png" alt="Logo" />
+    </div>
+  </a-carousel>
+</template>
+
+<style scoped>
+  /* Para o carrossel */
   :deep(.slick-slide) {
     text-align: center;
-    height: 160px;
-    line-height: 160px;
-    background: #364d79;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #09008a86;
     overflow: hidden;
   }
-  :deep(.slick-slide h3) {
-    color: #fff;
+
+  /* Estilo para a imagem no carrossel */
+  .carousel-item {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Garante que a imagem seja redimensionada corretamente */
   }
-  </style>
+</style>
+
   
