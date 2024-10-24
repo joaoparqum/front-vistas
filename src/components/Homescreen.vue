@@ -10,7 +10,7 @@
       <a-breadcrumb :style="{ margin: '16px 0' }">
       </a-breadcrumb>
       <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-        <h1>Seja bem vindo ás Vistas Explodidas!</h1>
+        <h1>Seja bem vindo ás Vistas Explodidas de Equipamentos!</h1>
         <br><br>
         <Login/>
         <Carrosel/>

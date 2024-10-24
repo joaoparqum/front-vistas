@@ -1,12 +1,10 @@
 import { createStore, Store } from 'vuex';
 import axios from 'axios';
 
-// Defina uma interface para o estado
 interface State {
   data: any[];
 }
 
-// Crie a store Vuex
 const store = createStore<State>({
   state() {
     return {
@@ -27,12 +25,31 @@ const store = createStore<State>({
         console.error('Erro ao buscar dados:', error);
       }
     },
-    async searchDocumentByCode({ commit }, DocumentCode) {
+    async searchDocumentByCode({ commit }, {DocumentCode, nomeArquivo}) {
       try {
-        const response = await axios.get(`http://localhost:8080/vistas/download/${DocumentCode}`);
+        const response = await axios.get(`http://localhost:8080/vistas/download/${DocumentCode}`, {
+          responseType: 'blob', // Para garantir que estamos lidando com um arquivo
+        });
+
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', nomeArquivo);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
         commit('setData', [response.data]);
       } catch (error) {
         console.error('Erro ao buscar documento por código:', error);
+      }
+    },
+    async searchDocumentByName({commit}, nomeArquivo) {
+      try {
+        const response = await axios.get(`http://localhost:8080/vistas/nomeArquivo/${nomeArquivo}`);
+        commit('setData', response.data);
+      } catch (error) {
+        console.log("Erro ao buscar documento pelo nome!");
       }
     },
     async deleteData({ dispatch }, id) {
@@ -53,7 +70,7 @@ const store = createStore<State>({
             'Content-Type': 'multipart/form-data',
           },
         });
-        dispatch('fetchData'); // Atualiza a lista após o upload
+        dispatch('fetchData');
       } catch (error) {
         console.error('Erro ao enviar o documento:', error);
         if (error.response && error.response.data && error.response.data.message) {

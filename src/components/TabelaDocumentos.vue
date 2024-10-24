@@ -3,7 +3,7 @@
     <a-button type="primary" @click="navegarParaAdicionarDocumento">Adicionar documento</a-button>
     <br><br>
     <a-input-search
-      v-model:value="value"
+      v-model:value="searchTerm"
       placeholder="Pesquisar por nome"
       enter-button
       @search="onSearch"
@@ -17,7 +17,7 @@
         </template>
         <template v-else-if="column.key === 'tipoArquivo'">
           <a-tag :color="record.tipoArquivo === 'pdf' ? 'geekblue' : 'green'">
-            {{ record.tipoArquivo.toUpperCase() }}
+            {{ record.tipoArquivo }}
           </a-tag>
         </template>
         <template v-else-if="column.key === 'tamanhoArquivo'">
@@ -27,7 +27,7 @@
           <span>
             <a @click="deleteDocument(record.id)">Deletar</a>
             <a-divider type="vertical" />
-            <a href="">Baixar</a>
+            <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
           </span>
         </template>
       </template>
@@ -36,10 +36,12 @@
   
   <script lang="ts" setup>
     import { useStore } from 'vuex';
-    import { computed, onMounted } from 'vue';
+    import { computed, onMounted, ref, watch } from 'vue';
     import { useRouter } from 'vue-router';
+    import { message } from 'ant-design-vue';
 
     const router = useRouter();
+    const searchTerm = ref('');
 
     const navegarParaAdicionarDocumento = () => {
       router.push('/AdicionarDocumento');
@@ -47,53 +49,69 @@
     
     const store = useStore();
     
-    // Vincule os dados do Vuex à tabela
     const data = computed(() => store.state.data);
     
-    // Chame a ação para buscar dados ao montar o componente
     onMounted(() => {
         store.dispatch('fetchData');
     });
     
-    // Função para deletar o documento
+    const downloadDocument = (DocumentCode: string, nomeArquivo: string) => {
+      store.dispatch('searchDocumentByCode', {DocumentCode, nomeArquivo});
+      store.dispatch('fetchData');
+    };
+
     const deleteDocument = (id: string) => {
         store.dispatch('deleteData', id);
     };
 
-    const onSearch = (DocumentCode) => {
-      if (DocumentCode) {
-        store.dispatch('searchDocumentByCode', DocumentCode);
-      } else {
-        store.dispatch('fetchData');
+    const onSearch = (nomeArquivo: string) => {
+
+      if(searchTerm.value) {
+        try {
+          store.dispatch('searchDocumentByName', nomeArquivo);
+        } catch (error) {
+          message.error('Erro durante a busca! digite o nome corretamente!');
+        }
+      }else {
+        try {
+          store.dispatch('fetchData');
+        } catch (error) {
+          message.error('Erro ao buscar todos os documentos!');
+        }
       }
     };
-    
-    // Definir as colunas da tabela
+
+    watch(searchTerm, (newValue) => {
+      if (!newValue) {
+        store.dispatch('fetchData');
+      }
+    });
+
     const columns = [
-        {
+      {
         title: 'ID',
         dataIndex: 'id',
         key: 'id',
-        },
-        {
+      },
+      {
         title: 'Nome do Arquivo',
         dataIndex: 'nomeArquivo',
         key: 'nomeArquivo',
-        },
-        {
+      },
+      {
         title: 'Tipo do Arquivo',
         dataIndex: 'tipoArquivo',
         key: 'tipoArquivo',
-        },
-        {
+      },
+      {
         title: 'Tamanho do Arquivo (KB)',
         dataIndex: 'tamanhoArquivo',
         key: 'tamanhoArquivo',
-        },
-        {
+      },
+      {
         title: 'Ação',
         key: 'action',
-        },
+      },
     ];
   </script>
   
