@@ -9,11 +9,10 @@
       <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
         <a-breadcrumb :style="{ margin: '16px 0' }">
         </a-breadcrumb>
-        <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
+        <div :style="{ background: '#fff', padding: '60px', minHeight: '460px', marginLeft: '180px', marginRight: '180px'}">
           <h1 style="text-align: center;">Cadastro de Usuário</h1>
           <br>
-          <FormCriaUsuario/>
-          <Carrosel/>
+          <div class="form-container"><FormCriaUsuario/></div>
         </div>
       </a-layout-content>
       <a-layout-footer :style="{ textAlign: 'center' }">
@@ -22,24 +21,30 @@
     </a-layout>
   </template>
   
-  <script lang="ts" setup>
-    import Carrosel from './Carrosel.vue';
-import FormCriaUsuario from './FormCriaUsuario.vue';
-  </script>
+<script lang="ts" setup>
+  import FormCriaUsuario from './FormCriaUsuario.vue';
+</script>
   
-  <style scoped>
-    #components-layout-demo-fixed .logo {
-      width: 120px;
-      height: 31px;
-      background: rgba(255, 255, 255, 0.2);
-      margin: 16px 24px 16px 0;
-      float: left;
-    }
-    .site-layout .site-layout-background {
-      background: #fff;
-    }
-  
-    [data-theme='dark'] .site-layout .site-layout-background {
-      background: #141414;
-    }
-  </style>
+<style scoped>
+  #components-layout-demo-fixed .logo {
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px 24px 16px 0;
+    float: left;
+  }
+  .site-layout .site-layout-background {
+    background: #fff;
+  }
+
+  [data-theme='dark'] .site-layout .site-layout-background {
+    background: #141414;
+  }
+
+  .form-container{
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

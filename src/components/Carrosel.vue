@@ -1,7 +1,7 @@
 <template>
   <a-carousel autoplay>
     <div>
-      <h3 style="color: white">
+      <h3>
         <a href="https://casadoconstrutor.com.br/pt-br" target="_blank">Casa do Construtor</a>
       </h3>
     </div>
@@ -12,22 +12,16 @@
 </template>
 
 <style scoped>
-  /* Para o carrossel */
+  /* For demo */
   :deep(.slick-slide) {
     text-align: center;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #09008a86;
+    height: 300px;
+    line-height: 160px;
+    background: #ffffff;
     overflow: hidden;
   }
-
-  /* Estilo para a imagem no carrossel */
-  .carousel-item {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Garante que a imagem seja redimensionada corretamente */
+  :deep(.slick-slide h3) {
+    color: #fff;
   }
 </style>
 

@@ -9,13 +9,12 @@
     <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
       <a-breadcrumb :style="{ margin: '16px 0' }">
       </a-breadcrumb>
-      <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
-        <h1>Seja bem vindo ás Vistas Explodidas de Equipamentos!</h1>
+      <div :style="{ background: '#fff', padding: '60px', minHeight: '460px', marginLeft: '180px', marginRight: '180px'}">
+        <h1 style="text-align: center;">Seja bem vindo ás Vistas Explodidas de Equipamentos!</h1>
         <br><br>
-
+        <div class="login-container">
           <Login/>
-          <Carrosel/>
-        
+        </div>
       </div>
     </a-layout-content>
     <a-layout-footer :style="{ textAlign: 'center' }">
@@ -43,6 +42,13 @@
 
   [data-theme='dark'] .site-layout .site-layout-background {
     background: #141414;
+  }
+
+  .login-container{
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 </style>
