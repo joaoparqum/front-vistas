@@ -45,7 +45,11 @@
 <script lang="ts" setup>
 
   import { reactive } from 'vue';
+  import { useStore } from 'vuex';
+  import { message } from 'ant-design-vue';
   
+  const store = useStore();
+
   interface FormState {
       username: string;
       password: string;
@@ -58,9 +62,18 @@
       remember: true,
   });
   
-  const onFinish = (values: any) => {
-      console.log('Success:', values);
-  };
+  const onFinish = async () => {
+  try {
+    await store.dispatch('login', {
+      username: formState.username,
+      password: formState.password,
+    });
+    console.log('Login realizado com sucesso!');
+    message.success('Login realizado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao fazer login:', error);
+  }
+};
   
   const onFinishFailed = (errorInfo: any) => {
       console.log('Failed:', errorInfo);

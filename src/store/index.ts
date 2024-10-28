@@ -9,14 +9,48 @@ const store = createStore<State>({
   state() {
     return {
       data: [],
+      token: null,
+      user: null,
+      isLoggedIn: false
     };
   },
   mutations: {
     setData(state, data: any[]) {
       state.data = data;
     },
+    setToken(state, token) {
+      state.token = token;
+    },
+    setUser(state, user) {
+      state.user = user;
+    },
+    login(state) {
+      state.isLoggedIn = true;
+    },
+    logout(state) {
+      state.isLoggedIn = false;
+    },
   },
   actions: {
+    async login({ commit }, { username, password }) {
+      try {
+        const response = await axios.post('http://localhost:8080/auth/login', {
+          login: username,
+          password: password,
+        });
+
+        const token = response.data.token;
+        commit('setToken', token);
+        
+        localStorage.setItem('token', token);
+      } catch (error) {
+        console.error('Erro ao fazer login:', error);
+      }
+    },
+    async logout({ commit }) {
+      commit('setToken', null);
+      localStorage.removeItem('token');
+    },
     async fetchData({ commit }) {
       try {
         const response = await axios.get('http://localhost:8080/vistas');

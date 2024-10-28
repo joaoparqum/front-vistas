@@ -51,8 +51,11 @@
   import { reactive, computed } from 'vue';
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
   import { useRouter } from 'vue-router';
+  import { useStore } from 'vuex';
+  import { message } from 'ant-design-vue';
 
   const router = useRouter();
+  const store = useStore();
 
   const navegarParaCriarUsuario = () => {
       router.push('/TelaCriaUsuario');
@@ -68,8 +71,25 @@
     password: '',
     remember: true,
   });
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+
+  const onFinish = async () => {
+    try {
+      
+      await store.dispatch('login', {
+        username: formState.username,
+        password: formState.password,
+      });
+      
+      setTimeout(() => {
+          router.push('/TelaDocumentos');
+      }, 2000);
+
+      console.log('Login realizado com sucesso!');
+      message.success('Login realizado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      message.error('Erro ao fazer login!');
+    }
   };
   
   const onFinishFailed = (errorInfo: any) => {
