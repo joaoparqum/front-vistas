@@ -10,7 +10,9 @@ const store = createStore<State>({
     return {
       data: [],
       token: null,
-      user: null,
+      user: {
+        role: 'USER', // ou 'ADMIN', conforme o caso
+    },
       isLoggedIn: false
     };
   },
@@ -117,6 +119,12 @@ const store = createStore<State>({
   },
   getters: {
     flightData: (state) => state.data,
+    isAuthenticated(state) {
+      return !!state.token;
+    },
+    userRole(state) {
+      return state.role;
+    },
   },
 });
 

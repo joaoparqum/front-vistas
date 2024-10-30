@@ -17,14 +17,13 @@
         </div>
       </div>
     </a-layout-content>
-    <a-layout-footer :style="{ textAlign: 'center' }">
-      <h1>Casa do Construtor | Irecê ©2024</h1>
+    <a-layout-footer :style="{ textAlign: 'center', background: '#00008B' }">
+        <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
     </a-layout-footer>
   </a-layout>
 </template>
 
 <script lang="ts" setup>
-  import Carrosel from './Carrosel.vue';
   import Login from './Login.vue';
 </script>
 

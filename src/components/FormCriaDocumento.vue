@@ -19,9 +19,9 @@
         </a-form-item>
       </a-form>
     </div>
-  </template>
+</template>
   
-  <script lang="ts" setup>
+<script lang="ts" setup>
     import { reactive } from 'vue';
     import { useStore } from 'vuex'; // Para acessar a store Vuex
     import { useRouter } from 'vue-router';
@@ -56,23 +56,24 @@
             console.error('Erro ao enviar o documento:', error);
         }
     };
-  </script>
+</script>
   
 <style scoped>
-    .form-container {
+
+  .form-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40vh; /* Faz o contêiner ocupar toda a altura da tela */
-    }
+    height: 50vh; /* Faz o contêiner ocupar toda a altura da tela */
+  }
 
-    a-form {
+  a-form {
     width: 400px; /* Define a largura do formulário */
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+  }
 </style>
   

@@ -45,9 +45,9 @@
         <a @click="navegarParaCriarUsuario()">Registre-se agora!</a>
       </a-form-item>
     </a-form>
-  </template>
+</template>
 
-  <script lang="ts" setup>
+<script lang="ts" setup>
   import { reactive, computed } from 'vue';
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
   import { useRouter } from 'vue-router';
@@ -74,7 +74,6 @@
 
   const onFinish = async () => {
     try {
-      
       await store.dispatch('login', {
         username: formState.username,
         password: formState.password,
@@ -98,9 +97,9 @@
   const disabled = computed(() => {
     return !(formState.username && formState.password);
   });
-  </script>
+</script>
 
-  <style scoped>
+<style scoped>
     #components-form-demo-normal-login .login-form {
       max-width: 300px;
     }
@@ -110,5 +109,5 @@
     #components-form-demo-normal-login .login-form-button {
       width: 100%;
     }
-  </style>
+</style>
   
