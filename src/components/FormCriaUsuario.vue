@@ -24,7 +24,7 @@
           <a-input-password v-model:value="formState.password" />
         </a-form-item>
         <a-select
-          v-model:value="value"
+          v-model:value="formState.role"
           show-search
           placeholder="Selecione o tipo de usuário"
           style="width: 300px"
@@ -61,7 +61,7 @@
   const formState = reactive<FormState>({
       username: '',
       password: '',
-      role: 'USER',
+      role: '',
   });
 
   const options = ref<SelectProps['options']>([
