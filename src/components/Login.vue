@@ -31,18 +31,9 @@
       </a-form-item>
   
       <a-form-item>
-        <a-form-item name="remember" no-style>
-          <a-checkbox v-model:checked="formState.remember">Lembrar-me!</a-checkbox>
-        </a-form-item>
-        <a class="login-form-forgot" href="">Esqueceu a senha?</a>
-      </a-form-item>
-  
-      <a-form-item>
         <a-button :disabled="disabled" type="primary" html-type="submit" class="login-form-button">
           Entrar
         </a-button>
-        Ou
-        <a @click="navegarParaCriarUsuario()">Registre-se agora!</a>
       </a-form-item>
     </a-form>
 </template>
@@ -84,7 +75,6 @@
       }, 2000);
 
       console.log('Login realizado com sucesso!');
-      message.success('Login realizado com sucesso!');
     } catch (error) {
       console.error('Erro ao fazer login:', error);
       message.error('Erro ao fazer login!');

@@ -47,45 +47,44 @@
   import { reactive } from 'vue';
   import { useStore } from 'vuex';
   import { message } from 'ant-design-vue';
+  import type { SelectProps } from 'ant-design-vue';
+  import { ref } from 'vue';
   
   const store = useStore();
 
   interface FormState {
       username: string;
       password: string;
-      remember: boolean;
+      role: string;
   }
   
   const formState = reactive<FormState>({
       username: '',
       password: '',
-      remember: true,
+      role: 'USER',
   });
+
+  const options = ref<SelectProps['options']>([
+    { value: 'ADMIN', label: 'Administrador' },
+    { value: 'USER', label: 'Usuário' },
+  ]);
   
   const onFinish = async () => {
-  try {
-    await store.dispatch('login', {
-      username: formState.username,
-      password: formState.password,
-    });
-    console.log('Login realizado com sucesso!');
-    message.success('Login realizado com sucesso!');
-  } catch (error) {
-    console.error('Erro ao fazer login:', error);
-  }
-};
+    try {
+        await store.dispatch('registerUser', {
+            login: formState.username,
+            password: formState.password,
+            role: formState.role,
+        });
+    } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error);
+    }
+  };
   
   const onFinishFailed = (errorInfo: any) => {
       console.log('Failed:', errorInfo);
   };
   
-  import type { SelectProps } from 'ant-design-vue';
-  import { ref } from 'vue';
-  
-  const options = ref<SelectProps['options']>([
-      { value: 'adminstrador', label: 'Adminstrador' },
-      { value: 'usuário', label: 'Usuario' },
-  ]);
   
   const handleChange = (value: string) => {
       console.log(`selected ${value}`);

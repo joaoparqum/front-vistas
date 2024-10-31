@@ -1,5 +1,6 @@
 import { createStore, Store } from 'vuex';
 import axios from 'axios';
+import { message } from 'ant-design-vue';
 
 interface State {
   data: any[];
@@ -9,11 +10,11 @@ const store = createStore<State>({
   state() {
     return {
       data: [],
-      token: null,
+      token:  null,
       user: {
         role: 'USER', // ou 'ADMIN', conforme o caso
-    },
-      isLoggedIn: false
+      },
+      isLoggedIn: false,
     };
   },
   mutations: {
@@ -42,16 +43,31 @@ const store = createStore<State>({
         });
 
         const token = response.data.token;
-        commit('setToken', token);
+        commit('setToken', token); 
         
         localStorage.setItem('token', token);
+        message.success('Login realizado com sucesso!');
       } catch (error) {
         console.error('Erro ao fazer login:', error);
+        message.error('Erro ao fazer login! store');
       }
     },
     async logout({ commit }) {
       commit('setToken', null);
       localStorage.removeItem('token');
+    },
+    async registerUser({ commit }, userData) {
+      try {
+        const response = await axios.post('http://localhost:8080/auth/register', userData);
+        console.log('Usuário cadastrado com sucesso:', response.data);
+        message.success('Usuário cadastrado com sucesso!');
+        
+        // Opcional: Armazenar o usuário no estado caso seja necessário
+        commit('setUser', userData);
+      } catch (error) {
+        console.error('Erro ao cadastrar usuário:', error);
+        message.error('Erro ao cadastrar usuário!');
+      }
     },
     async fetchData({ commit }) {
       try {
@@ -119,12 +135,6 @@ const store = createStore<State>({
   },
   getters: {
     flightData: (state) => state.data,
-    isAuthenticated(state) {
-      return !!state.token;
-    },
-    userRole(state) {
-      return state.role;
-    },
   },
 });
 
