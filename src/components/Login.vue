@@ -34,6 +34,8 @@
         <a-button :disabled="disabled" type="primary" html-type="submit" class="login-form-button">
           Entrar
         </a-button>
+        Ou
+        <a @click="navegarParaCriarUsuario()">Registre-se agora!</a>
       </a-form-item>
     </a-form>
 </template>

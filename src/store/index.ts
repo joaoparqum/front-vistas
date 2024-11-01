@@ -12,7 +12,7 @@ const store = createStore<State>({
       data: [],
       token:  null,
       user: {
-        role: 'USER', // ou 'ADMIN', conforme o caso
+        role: 'ADMIN',
       },
       isLoggedIn: false,
     };
@@ -33,6 +33,9 @@ const store = createStore<State>({
     logout(state) {
       state.isLoggedIn = false;
     },
+    setUserRole(state, role) {
+      state.user.role = role;
+    }
   },
   actions: {
     async login({ commit }, { username, password }) {
@@ -61,8 +64,7 @@ const store = createStore<State>({
         const response = await axios.post('http://localhost:8080/auth/register', userData);
         console.log('Usuário cadastrado com sucesso:', response.data);
         message.success('Usuário cadastrado com sucesso!');
-        
-        // Opcional: Armazenar o usuário no estado caso seja necessário
+
         commit('setUser', userData);
       } catch (error) {
         console.error('Erro ao cadastrar usuário:', error);

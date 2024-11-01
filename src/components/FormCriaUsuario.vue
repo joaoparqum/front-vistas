@@ -23,17 +23,23 @@
         >
           <a-input-password v-model:value="formState.password" />
         </a-form-item>
-        <a-select
+
+        <a-form-item
+          label="Tipo de usuário:"
+          :rules="[{required: true}]"
+        >
+          <a-select
           v-model:value="formState.role"
           show-search
-          placeholder="Selecione o tipo de usuário"
           style="width: 300px"
           :options="options"
           :filter-option="filterOption"
           @focus="handleFocus"
           @blur="handleBlur"
           @change="handleChange"
-        ></a-select>
+          ></a-select>
+        </a-form-item>
+
         <br><br>
         <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
           <a-button type="primary" html-type="submit">Cadastrar</a-button>
