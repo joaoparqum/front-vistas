@@ -12,7 +12,7 @@ const store = createStore<State>({
       data: [],
       token:  null,
       user: {
-        role: 'ADMIN',
+        role: 'USER', // ou 'ADMIN', conforme o caso
       },
       isLoggedIn: false,
     };
@@ -33,9 +33,6 @@ const store = createStore<State>({
     logout(state) {
       state.isLoggedIn = false;
     },
-    setUserRole(state, role) {
-      state.user.role = role;
-    }
   },
   actions: {
     async login({ commit }, { username, password }) {
