@@ -22,13 +22,12 @@
 </template>
   
 <script lang="ts" setup>
-    import { reactive } from 'vue';
     import { useStore } from 'vuex'; // Para acessar a store Vuex
     import { useRouter } from 'vue-router';
     import { message } from 'ant-design-vue';
     
     const store = useStore();
-    const fileList = reactive([]);
+    const fileList: File[] = [];
     const router = useRouter();
     
     // Função para capturar o arquivo antes de enviar

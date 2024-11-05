@@ -25,8 +25,8 @@
         </template>
         <template v-else-if="column.key === 'action'">
           <span>
-            <a v-if="isAdmin" @click="deleteDocument(record.id)">Deletar</a>
-            <a-divider type="vertical" v-if="isAdmin" />
+            <a @click="deleteDocument(record.id)">Deletar</a>
+            <a-divider type="vertical" />
             <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
           </span>
         </template>

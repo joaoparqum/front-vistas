@@ -66,20 +66,16 @@
   });
 
   const onFinish = async () => {
-    try {
-      await store.dispatch('login', {
-        username: formState.username,
-        password: formState.password,
-      });
-      
-      setTimeout(() => {
-          router.push('/TelaDocumentos');
-      }, 2000);
+    const success = await store.dispatch('login', {
+      username: formState.username,
+      password: formState.password,
+    });
 
+    if (success) {
+      setTimeout(() => {
+        router.push('/TelaDocumentos');
+      }, 2000);
       console.log('Login realizado com sucesso!');
-    } catch (error) {
-      console.error('Erro ao fazer login:', error);
-      message.error('Erro ao fazer login!');
     }
   };
   

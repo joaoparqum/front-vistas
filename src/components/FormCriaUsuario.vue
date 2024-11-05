@@ -52,7 +52,6 @@
 
   import { reactive } from 'vue';
   import { useStore } from 'vuex';
-  import { message } from 'ant-design-vue';
   import type { SelectProps } from 'ant-design-vue';
   import { ref } from 'vue';
   
@@ -107,8 +106,6 @@
   const filterOption = (input: string, option: any) => {
       return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
   };
-  
-  const value = ref<string | undefined>(undefined);
   
 </script>
   
