@@ -7,6 +7,7 @@ interface State {
   token: string | null;
   user: any | null;
   isLoggedIn: boolean | null;
+  role: string | null;
 }
 
 const store = createStore({
@@ -15,6 +16,7 @@ const store = createStore({
       data: [],
       token: null,
       user: null,
+      role: null,
       isLoggedIn: false,
     };
   },
@@ -27,6 +29,9 @@ const store = createStore({
     },
     setUser(state: State, user: any) {
       state.user = user;
+    },
+    setRole(state: State, role: string) { 
+      state.role = role;
     },
     login(state: State) {
       state.isLoggedIn = true;
@@ -46,9 +51,15 @@ const store = createStore({
           password: password,
         });
         const token = response.data.token;
+        const role = response.data.role;
+
         commit('setToken', token);
+        commit('setUser', role);
         localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+
         console.log('token:', token);
+        console.log('role:', role);
 
         message.success('Login realizado com sucesso!');
 

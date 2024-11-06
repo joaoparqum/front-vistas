@@ -1,6 +1,12 @@
 <template>
 
-    <a-button type="primary" @click="navegarParaAdicionarDocumento">Adicionar documento</a-button>
+    <a-button 
+      type="primary" 
+      @click="navegarParaAdicionarDocumento"
+      v-if="isAdmin"
+    >
+      Adicionar documento
+    </a-button>
     <br><br>
     <a-input-search
       v-model:value="searchTerm"
@@ -24,11 +30,11 @@
           <span>{{ (record.tamanhoArquivo / 1024).toFixed(2) }} KB</span>
         </template>
         <template v-else-if="column.key === 'action'">
-          <span>
+          <span v-if="isAdmin">
             <a @click="deleteDocument(record.id)">Deletar</a>
             <a-divider type="vertical" />
-            <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
           </span>
+          <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
         </template>
       </template>
     </a-table>
@@ -42,16 +48,19 @@
 
     const router = useRouter();
     const searchTerm = ref('');
+    const store = useStore();
+
+    const isAdmin = computed(() => {
+      const role = localStorage.getItem('role');
+      console.log('Usuário carregado:', role); // Verificar se o usuário está disponível
+      return role === 'admin';
+    });
 
     const navegarParaAdicionarDocumento = () => {
       router.push('/AdicionarDocumento');
     };
-    
-    const store = useStore();
-    
-    const data = computed(() => store.state.data);
 
-    const isAdmin = computed(() => store.state.user.role === 'ADMIN');
+    const data = computed(() => store.state.data);
     
     onMounted(() => {
         store.dispatch('fetchData');
