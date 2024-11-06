@@ -14,9 +14,7 @@ const store = createStore({
     return {
       data: [],
       token: null,
-      user: {
-        role: 'USER',
-      },
+      user: null,
       isLoggedIn: false,
     };
   },
@@ -38,7 +36,10 @@ const store = createStore({
     },
   },
   actions: {
-    async login({ commit }: { commit: (mutation: string, payload?: any) => void }, { username, password }: { username: string; password: string }) {
+    async login(
+      { commit }: { commit: (mutation: string, payload?: any) => void }, 
+      { username, password }: { username: string; password: string }) 
+    {
       try {
         const response = await axios.post('http://localhost:8080/auth/login', {
           login: username,
@@ -47,7 +48,10 @@ const store = createStore({
         const token = response.data.token;
         commit('setToken', token);
         localStorage.setItem('token', token);
+        console.log('token:', token);
+
         message.success('Login realizado com sucesso!');
+
         return true;
       } catch (error: any) {
         if (error.response && error.response.status === 401) {
@@ -62,7 +66,10 @@ const store = createStore({
       commit('setToken', null);
       localStorage.removeItem('token');
     },
-    async registerUser({ commit }: { commit: (mutation: string, payload?: any) => void }, userData: any) {
+    async registerUser(
+      { commit }: { commit: (mutation: string, payload?: any) => void }, 
+      userData: any) 
+    {
       try {
         const response = await axios.post('http://localhost:8080/auth/register', userData);
         console.log('Usuário cadastrado com sucesso:', response.data);
@@ -101,7 +108,10 @@ const store = createStore({
         console.error('Erro ao buscar documento por código:', error);
       }
     },
-    async searchDocumentByName({ commit }: { commit: (mutation: string, payload?: any) => void }, nomeArquivo: string) {
+    async searchDocumentByName(
+      { commit }: { commit: (mutation: string, payload?: any) => void }, 
+      nomeArquivo: string) 
+    {
       try {
         const response = await axios.get(`http://localhost:8080/vistas/nomeArquivo/${nomeArquivo}`);
         commit('setData', response.data);
@@ -109,7 +119,10 @@ const store = createStore({
         console.log("Erro ao buscar documento pelo nome!");
       }
     },
-    async deleteData({ dispatch }: { dispatch: (action: string, payload?: any) => Promise<any> }, id: string) {
+    async deleteData(
+      { dispatch }: { dispatch: (action: string, payload?: any) => Promise<any> }, 
+      id: string) 
+    {
       try {
         await axios.delete(`http://localhost:8080/vistas/delete/${id}`);
         dispatch('fetchData');
@@ -117,13 +130,17 @@ const store = createStore({
         console.error('Erro ao excluir o documento:', error);
       }
     },
-    async addDocument({ dispatch }: { dispatch: (action: string, payload?: any) => Promise<any> }, file: File) {
+    async addDocument(
+      { state, dispatch }: { state: State; dispatch: (action: string, payload?: any) => Promise<any> }, 
+      file: File) 
+    {
       try {
         const formData = new FormData();
         formData.append('file', file);
         await axios.post('http://localhost:8080/vistas/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${state.token}`
           },
         });
         dispatch('fetchData');

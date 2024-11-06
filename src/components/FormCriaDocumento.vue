@@ -22,39 +22,39 @@
 </template>
   
 <script lang="ts" setup>
-    import { useStore } from 'vuex'; // Para acessar a store Vuex
-    import { useRouter } from 'vue-router';
-    import { message } from 'ant-design-vue';
-    
-    const store = useStore();
-    const fileList: File[] = [];
-    const router = useRouter();
-    
-    // Função para capturar o arquivo antes de enviar
-    const beforeUpload = (file: File) => {
-        fileList[0] = file; // Armazena o arquivo selecionado
-        return false; // Impede o upload automático
-    };
-    
-    const handleSubmit = async (e: Event) => {
-        e.preventDefault();
-    
-        if (fileList.length === 0) {
-            console.error('Nenhum arquivo foi selecionado.');
-            return;
-        }
-    
-        try {
-            await store.dispatch('addDocument', fileList[0]);
-            message.success('Documento cadastrado com sucesso!');
-            setTimeout(() => {
-                router.push('/TelaDocumentos');
-            }, 2000);
-            console.log('Arquivo enviado com sucesso.');
-        } catch (error) {
-            console.error('Erro ao enviar o documento:', error);
-        }
-    };
+  import { useStore } from 'vuex'; // Para acessar a store Vuex
+  import { useRouter } from 'vue-router';
+  import { message } from 'ant-design-vue';
+  
+  const store = useStore();
+  const fileList: File[] = [];
+  const router = useRouter();
+  
+  // Função para capturar o arquivo antes de enviar
+  const beforeUpload = (file: File) => {
+      fileList[0] = file; // Armazena o arquivo selecionado
+      return false; // Impede o upload automático
+  };
+  
+  const handleSubmit = async (e: Event) => {
+      e.preventDefault();
+  
+      if (fileList.length === 0) {
+          console.error('Nenhum arquivo foi selecionado.');
+          return;
+      }
+  
+      try {
+          await store.dispatch('addDocument', fileList[0]);
+          message.success('Documento cadastrado com sucesso!');
+          setTimeout(() => {
+              router.push('/TelaDocumentos');
+          }, 2000);
+          console.log('Arquivo enviado com sucesso.');
+      } catch (error) {
+          console.error('Erro ao enviar o documento:', error);
+      }
+  };
 </script>
   
 <style scoped>
