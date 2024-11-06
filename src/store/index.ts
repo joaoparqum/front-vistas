@@ -120,11 +120,15 @@ const store = createStore({
       }
     },
     async deleteData(
-      { dispatch }: { dispatch: (action: string, payload?: any) => Promise<any> }, 
+      { state, dispatch }: { state: State; dispatch: (action: string, payload?: any) => Promise<any> }, 
       id: string) 
     {
       try {
-        await axios.delete(`http://localhost:8080/vistas/delete/${id}`);
+        await axios.delete(`http://localhost:8080/vistas/delete/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${state.token}`,
+          },
+        });
         dispatch('fetchData');
       } catch (error) {
         console.error('Erro ao excluir o documento:', error);
