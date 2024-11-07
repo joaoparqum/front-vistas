@@ -5,7 +5,7 @@ import { message } from 'ant-design-vue';
 interface State {
   data: any[];
   token: string | null;
-  user: any | null;
+  user: string | null;
   isLoggedIn: boolean | null;
   role: string | null;
 }
@@ -27,7 +27,7 @@ const store = createStore({
     setToken(state: State, token: string) {
       state.token = token;
     },
-    setUser(state: State, user: any) {
+    setUser(state: State, user: string) {
       state.user = user;
     },
     setRole(state: State, role: string) { 

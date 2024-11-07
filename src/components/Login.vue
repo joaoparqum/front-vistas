@@ -45,7 +45,6 @@
   import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
   import { useRouter } from 'vue-router';
   import { useStore } from 'vuex';
-  import { message } from 'ant-design-vue';
 
   const router = useRouter();
   const store = useStore();

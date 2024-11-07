@@ -3,13 +3,19 @@
   
       <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }">
         <div style="display: flex; align-items: center;">
-          <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;"/> 
+          <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;" /> 
           <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
         </div>
-        <a-button type="primary" @click="fazerLogout()">
-          <LogoutOutlined />
-          Sair
-        </a-button>
+        <div style="display: flex; gap: 10px;">
+          <a-button v-if="isAdmin" type="primary" @click="cadastrarUsuario()">
+            <UserAddOutlined />
+            Registrar usuário
+          </a-button>
+          <a-button type="primary" @click="fazerLogout()">
+            <LogoutOutlined />
+            Sair
+          </a-button>
+        </div>
       </a-layout-header>
 
       <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
@@ -31,7 +37,8 @@
     import { useStore } from 'vuex';
     import { message } from 'ant-design-vue';
     import { useRouter } from 'vue-router';
-    import { LogoutOutlined } from '@ant-design/icons-vue';
+    import { LogoutOutlined, UserAddOutlined } from '@ant-design/icons-vue';
+    import { computed } from 'vue';
 
     const router = useRouter();
     const store = useStore();
@@ -45,6 +52,18 @@
           router.push('/');
       }, 2000);
     }
+
+    const cadastrarUsuario = () => {
+      setTimeout(() => {
+        router.push('/TelaCriaUsuario')
+      }, 2000);
+    }
+
+    const isAdmin = computed(() => {
+      const role = localStorage.getItem('role');
+      console.log('Usuário carregado:', role);
+      return role === 'admin';
+    });
 
 
   </script>

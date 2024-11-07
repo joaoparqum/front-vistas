@@ -18,7 +18,7 @@ const router = createRouter({
 });
 
 // Adicionando a guarda de navegação para proteger as rotas
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const store = useStore();
 
   // Checa se a rota requer autenticação
