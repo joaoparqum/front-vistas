@@ -6,10 +6,13 @@
           <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;"/> 
           <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
         </div>
-        <a-button type="primary" @click="fazerLogout()">
-          <LogoutOutlined />
-          Sair
-        </a-button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <p style="color: white; font-weight: bold; margin: 0;">Olá, {{ username }}!</p>
+          <a-button type="primary" @click="fazerLogout()">
+            <LogoutOutlined />
+            Sair
+          </a-button>
+        </div>
     </a-layout-header>
 
     <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
@@ -32,9 +35,15 @@
   import { message } from 'ant-design-vue';
   import { useRouter } from 'vue-router';
   import { LogoutOutlined } from '@ant-design/icons-vue';
+  import { onMounted, ref } from 'vue';
 
   const router = useRouter();
   const store = useStore();
+  const username = ref<string | null>(null);
+
+  onMounted(() => {
+      username.value = localStorage.getItem('login');
+  });
 
   const fazerLogout = () => {
     store.dispatch('logout');

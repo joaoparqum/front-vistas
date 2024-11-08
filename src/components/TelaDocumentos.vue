@@ -6,7 +6,8 @@
           <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;" /> 
           <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
         </div>
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <p style="color: white; font-weight: bold; margin: 0;">Olá, {{ username }}!</p>
           <a-button v-if="isAdmin" type="primary" @click="cadastrarUsuario()">
             <UserAddOutlined />
             Registrar usuário
@@ -38,10 +39,15 @@
     import { message } from 'ant-design-vue';
     import { useRouter } from 'vue-router';
     import { LogoutOutlined, UserAddOutlined } from '@ant-design/icons-vue';
-    import { computed } from 'vue';
+    import { computed, onMounted, ref } from 'vue';
 
     const router = useRouter();
     const store = useStore();
+    const username = ref<string | null>(null);
+
+    onMounted(() => {
+        username.value = localStorage.getItem('login');
+    });
 
     const fazerLogout = () => {
       store.dispatch('logout');

@@ -8,6 +8,9 @@ interface State {
   user: string | null;
   isLoggedIn: boolean | null;
   role: string | null;
+  login: string | null;
+  document: any | null;
+  url: string | null;
 }
 
 const store = createStore({
@@ -17,7 +20,9 @@ const store = createStore({
       token: null,
       user: null,
       role: null,
+      login: null,
       isLoggedIn: false,
+      document: null,
     };
   },
   mutations: {
@@ -33,12 +38,21 @@ const store = createStore({
     setRole(state: State, role: string) { 
       state.role = role;
     },
+    setLogin(state: State, login: string){
+      state.login = login;
+    },
     login(state: State) {
       state.isLoggedIn = true;
     },
     logout(state: State) {
       state.isLoggedIn = false;
     },
+    setDocument(state: State, url: string) {
+      state.document = url;
+    },
+    clearDocument(state: State) {
+      state.document = null;
+    }
   },
   actions: {
     async login(
@@ -52,14 +66,19 @@ const store = createStore({
         });
         const token = response.data.token;
         const role = response.data.role;
+        const login = response.data.login;
 
         commit('setToken', token);
         commit('setUser', role);
+        commit('setLogin', login);
+        
         localStorage.setItem('token', token);
         localStorage.setItem('role', role);
+        localStorage.setItem('login', login);
 
         console.log('token:', token);
         console.log('role:', role);
+        console.log('login:', login);
 
         message.success('Login realizado com sucesso!');
 
@@ -130,6 +149,23 @@ const store = createStore({
         console.log("Erro ao buscar documento pelo nome!");
       }
     },
+    async fetchDocumentByCode(
+      { commit }: { commit: (mutation: string, payload?: any) => void },
+      { DocumentCode }: { DocumentCode: string})
+    {
+      try {
+        const response = await axios.get(`http://localhost:8080/vistas/id/${DocumentCode}`, {
+          responseType: 'blob', // Certifique-se de receber como blob
+        });
+    
+        const documentUrl = window.URL.createObjectURL(new Blob([response.data]));
+        commit('setDocument', documentUrl); // Armazena a URL do Blob no estado
+      } catch (error) {
+        console.error('Erro ao carregar o conteúdo do documento:', error);
+        commit('setDocument', null);
+        throw new Error('Erro ao carregar o conteúdo do documento!');
+      }
+    },
     async deleteData(
       { state, dispatch }: { state: State; dispatch: (action: string, payload?: any) => Promise<any> }, 
       id: string) 
@@ -168,6 +204,7 @@ const store = createStore({
   },
   getters: {
     flightData: (state: State) => state.data,
+    documentUrl: (state: State) => state.document,
   },
 });
 

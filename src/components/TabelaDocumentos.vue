@@ -19,7 +19,9 @@
     <a-table :columns="columns" :data-source="data">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'nomeArquivo'">
-          <a>{{ record.nomeArquivo }}</a>
+          <a @click="downloadDocument(record.id, record.nomeArquivo)">
+            {{ record.nomeArquivo }}
+          </a>
         </template>
         <template v-else-if="column.key === 'tipoArquivo'">
           <a-tag :color="record.tipoArquivo === 'pdf' ? 'geekblue' : 'green'">
@@ -35,12 +37,23 @@
             <a-divider type="vertical" />
           </span>
           <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
+          <a-divider type="vertical" />
+          <a @click="visualizarDocumento(record.id)">Visualizar</a>
         </template>
       </template>
     </a-table>
-  </template>
+
+    <Modal v-model:visible="isModalVisible" title="Visualizar Documento" @cancel="handleCancel">
+      <iframe v-if="documentUrl" :src="documentUrl" width="100%" height="500px"></iframe>
+      <template #footer>
+        <Button @click="handleCancel">Cancelar</Button>
+        <Button type="primary" @click="handleOk">OK</Button>
+      </template>
+    </Modal>
+
+</template>
   
-  <script lang="ts" setup>
+<script lang="ts" setup>
     import { useStore } from 'vuex';
     import { computed, onMounted, ref, watch } from 'vue';
     import { useRouter } from 'vue-router';
@@ -49,6 +62,39 @@
     const router = useRouter();
     const searchTerm = ref('');
     const store = useStore();
+
+    const isModalVisible = ref(false);
+    const documentUrl = ref<string | null>(null);
+
+    const visualizarDocumento = async (DocumentCode: string) => {
+      try {
+        // Dispara a ação para buscar o documento e recebe o Blob
+        const blob = await store.dispatch('fetchDocumentByCode', DocumentCode);
+        documentUrl.value = URL.createObjectURL(blob); // Cria uma URL para o Blob
+        isModalVisible.value = true; // Exibe o modal com o documento
+      } catch (error) {
+        message.error('Erro ao carregar o documento!');
+      }
+    };
+
+    // Limpa o URL do documento ao fechar o modal
+    const handleCancel = () => {
+      isModalVisible.value = false;
+      clearDocumentUrl();
+    };
+
+    const handleOk = () => {
+      isModalVisible.value = false;
+      clearDocumentUrl();
+    };
+
+    // Libera o Blob da memória ao fechar o modal
+    const clearDocumentUrl = () => {
+      if (documentUrl.value) {
+        URL.revokeObjectURL(documentUrl.value);
+        documentUrl.value = null;
+      }
+    };
 
     const isAdmin = computed(() => {
       const role = localStorage.getItem('role');
@@ -63,7 +109,7 @@
     const data = computed(() => store.state.data);
     
     onMounted(() => {
-        store.dispatch('fetchData');
+      store.dispatch('fetchData');
     });
     
     const downloadDocument = (DocumentCode: string, nomeArquivo: string) => {
@@ -72,7 +118,7 @@
     };
 
     const deleteDocument = (id: string) => {
-        store.dispatch('deleteData', id);
+      store.dispatch('deleteData', id);
     };
 
     const onSearch = (nomeArquivo: string) => {
@@ -124,7 +170,7 @@
         key: 'action',
       },
     ];
-  </script>
+</script>
   
   
   
