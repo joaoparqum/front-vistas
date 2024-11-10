@@ -37,19 +37,9 @@
             <a-divider type="vertical" />
           </span>
           <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
-          <a-divider type="vertical" />
-          <a @click="visualizarDocumento(record.id)">Visualizar</a>
         </template>
       </template>
     </a-table>
-
-    <Modal v-model:visible="isModalVisible" title="Visualizar Documento" @cancel="handleCancel">
-      <iframe v-if="documentUrl" :src="documentUrl" width="100%" height="500px"></iframe>
-      <template #footer>
-        <Button @click="handleCancel">Cancelar</Button>
-        <Button type="primary" @click="handleOk">OK</Button>
-      </template>
-    </Modal>
 
 </template>
   
@@ -62,39 +52,6 @@
     const router = useRouter();
     const searchTerm = ref('');
     const store = useStore();
-
-    const isModalVisible = ref(false);
-    const documentUrl = ref<string | null>(null);
-
-    const visualizarDocumento = async (DocumentCode: string) => {
-      try {
-        // Dispara a ação para buscar o documento e recebe o Blob
-        const blob = await store.dispatch('fetchDocumentByCode', DocumentCode);
-        documentUrl.value = URL.createObjectURL(blob); // Cria uma URL para o Blob
-        isModalVisible.value = true; // Exibe o modal com o documento
-      } catch (error) {
-        message.error('Erro ao carregar o documento!');
-      }
-    };
-
-    // Limpa o URL do documento ao fechar o modal
-    const handleCancel = () => {
-      isModalVisible.value = false;
-      clearDocumentUrl();
-    };
-
-    const handleOk = () => {
-      isModalVisible.value = false;
-      clearDocumentUrl();
-    };
-
-    // Libera o Blob da memória ao fechar o modal
-    const clearDocumentUrl = () => {
-      if (documentUrl.value) {
-        URL.revokeObjectURL(documentUrl.value);
-        documentUrl.value = null;
-      }
-    };
 
     const isAdmin = computed(() => {
       const role = localStorage.getItem('role');
