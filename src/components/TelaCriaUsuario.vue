@@ -6,7 +6,7 @@
           <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;"/> 
           <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
         </div>
-        <a-button type="primary" @click="fazerLogout()">
+        <a-button v-if="isAdmin" type="primary" @click="fazerLogout()">
           <LogoutOutlined />
           Sair
         </a-button>
@@ -34,19 +34,26 @@
   import { message } from 'ant-design-vue';
   import { useRouter } from 'vue-router';
   import { LogoutOutlined } from '@ant-design/icons-vue';
+  import { computed } from 'vue';
 
   const router = useRouter();
-    const store = useStore();
+  const store = useStore();
 
-    const fazerLogout = () => {
-      store.dispatch('logout');
+  const fazerLogout = () => {
+    store.dispatch('logout');
 
-      message.success('Saindo...');
+    message.success('Saindo...');
 
-      setTimeout(() => {
-          router.push('/');
-      }, 2000);
-    }
+    setTimeout(() => {
+        router.push('/');
+    }, 2000);
+  }
+
+  const isAdmin = computed(() => {
+    const role = localStorage.getItem('role');
+    console.log('Usuário carregado:', role);
+    return role === 'admin' || role === 'user';
+  });
 </script>
   
 <style scoped>

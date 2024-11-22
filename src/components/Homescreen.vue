@@ -1,24 +1,24 @@
 <template>
   <a-layout>
-
-    <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center' }">
-      <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;"/> 
-      <h1 style="color: white;">Vistas Explodidas</h1>
+    <a-layout-header 
+      :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px' }"
+    >
+      <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;" />
+      <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
     </a-layout-header>
 
-    <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
-      <a-breadcrumb :style="{ margin: '16px 0' }">
-      </a-breadcrumb>
-      <div :style="{ background: '#fff', padding: '90px', minHeight: '460px', marginLeft: '180px', marginRight: '180px'}">
-        <h1 style="text-align: center;">Seja bem vindo ás Vistas Explodidas de Equipamentos!</h1>
-        <br><br>
+    <a-layout-content :style="{ padding: '0 20px', marginTop: '64px' }">
+      <a-breadcrumb :style="{ margin: '16px 0' }"></a-breadcrumb>
+      <div class="content-wrapper">
+        <h1 class="welcome-title">Seja bem-vindo às Vistas Explodidas de Equipamentos!</h1>
         <div class="login-container">
-          <Login/>
+          <Login />
         </div>
       </div>
     </a-layout-content>
-    <a-layout-footer :style="{ textAlign: 'center', background: '#00008B' }">
-        <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
+
+    <a-layout-footer :style="{ textAlign: 'center', background: '#00008B', padding: '35px 0' }">
+      <h2 style="color: yellow; margin: 0;">Casa do Construtor | Irecê ©2024</h2>
     </a-layout-footer>
   </a-layout>
 </template>
@@ -28,27 +28,50 @@
 </script>
 
 <style scoped>
-  #components-layout-demo-fixed .logo {
-    width: 120px;
-    height: 31px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px 24px 16px 0;
-    float: left;
-  }
-  .site-layout .site-layout-background {
+  /* Estilo padrão */
+  .content-wrapper {
     background: #fff;
+    padding: 60px;
+    margin: 0 auto;
+    max-width: 800px;
+    min-height: 460px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  [data-theme='dark'] .site-layout .site-layout-background {
-    background: #141414;
+  .welcome-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.5rem;
   }
 
-  .login-container{
-    padding: 30px;
+  .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 30px;
   }
 
-</style>
+  /* Responsividade */
+  @media (max-width: 1024px) {
+    .content-wrapper {
+      padding: 40px;
+      margin: 0 20px;
+    }
+    .welcome-title {
+      font-size: 1.25rem;
+    }
+  }
 
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 20px;
+    }
+    .welcome-title {
+      font-size: 1rem;
+    }
+    a-layout-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

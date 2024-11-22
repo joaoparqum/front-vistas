@@ -1,34 +1,34 @@
 <template>
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <a-form
-        :model="formState"
-        name="basic"
-        :label-col="{ span: 8 }"
-        :wrapper-col="{ span: 16 }"
-        autocomplete="off"
-        @finish="onFinish"
-        @finishFailed="onFinishFailed"
+  <div style="display: flex; justify-content: center; align-items: center;">
+    <a-form
+      :model="formState"
+      name="basic"
+      layout="vertical"
+      autocomplete="off"
+      @finish="onFinish"
+      @finishFailed="onFinishFailed"
+    >
+      <a-form-item
+        label="Usuário"
+        name="username"
+        :rules="[{ required: true, message: 'Insira seu nome de usuário!' }]"
       >
-        <a-form-item
-          label="Usuário"
-          name="username"
-          :rules="[{ required: true, message: 'Insira seu nome de usuário!' }]"
-        >
-          <a-input v-model:value="formState.username" />
-        </a-form-item>
-        <a-form-item
-          label="Senha"
-          name="password"
-          :rules="[{ required: true, message: 'Insira sua senha!' }]"
-        >
-          <a-input-password v-model:value="formState.password" />
-        </a-form-item>
+        <a-input v-model:value="formState.username" />
+      </a-form-item>
+      <a-form-item
+        label="Senha"
+        name="password"
+        :rules="[{ required: true, message: 'Insira sua senha!' }]"
+      >
+        <a-input-password v-model:value="formState.password" />
+      </a-form-item>
 
-        <a-form-item
-          label="Tipo de usuário:"
-          :rules="[{required: true}]"
-        >
-          <a-select
+      <a-form-item
+        label="Tipo de usuário:"
+        name="role"
+        :rules="[{ required: true, message: 'Selecione o tipo de usuário!' }]"
+      >
+        <a-select
           v-model:value="formState.role"
           show-search
           style="width: 300px"
@@ -37,76 +37,72 @@
           @focus="handleFocus"
           @blur="handleBlur"
           @change="handleChange"
-          ></a-select>
-        </a-form-item>
+        ></a-select>
+      </a-form-item>
 
-        <br><br>
-        <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
-          <a-button type="primary" html-type="submit">Cadastrar</a-button>
-        </a-form-item>
-      </a-form>
-    </div>
-  </template>
-  
+      <br><br>
+      <a-form-item>
+        <a-button type="primary" html-type="submit">Cadastrar</a-button>
+      </a-form-item>
+    </a-form>
+  </div>
+</template>
+
 <script lang="ts" setup>
-
-  import { reactive } from 'vue';
+  import { reactive, ref } from 'vue';
   import { useStore } from 'vuex';
   import type { SelectProps } from 'ant-design-vue';
-  import { ref } from 'vue';
-  
+
   const store = useStore();
 
   interface FormState {
-      username: string;
-      password: string;
-      role: string;
+    username: string;
+    password: string;
+    role: string;
   }
-  
+
   const formState = reactive<FormState>({
-      username: '',
-      password: '',
-      role: '',
+    username: '',
+    password: '',
+    role: '',
   });
 
   const options = ref<SelectProps['options']>([
     { value: 'ADMIN', label: 'Administrador' },
     { value: 'USER', label: 'Usuário' },
   ]);
-  
+
   const onFinish = async () => {
     try {
-        await store.dispatch('registerUser', {
-            login: formState.username,
-            password: formState.password,
-            role: formState.role,
-        });
+      await store.dispatch('registerUser', {
+        login: formState.username,
+        password: formState.password,
+        role: formState.role,
+      });
     } catch (error) {
-        console.error('Erro ao cadastrar usuário:', error);
+      console.error('Erro ao cadastrar usuário:', error);
     }
   };
-  
+
   const onFinishFailed = (errorInfo: any) => {
-      console.log('Failed:', errorInfo);
+    console.log('Failed:', errorInfo);
   };
-  
-  
+
   const handleChange = (value: string) => {
-      console.log(`selected ${value}`);
+    console.log(`selected ${value}`);
   };
-  
+
   const handleBlur = () => {
-      console.log('blur');
+    console.log('blur');
   };
-  
+
   const handleFocus = () => {
-      console.log('focus');
+    console.log('focus');
   };
-  
+
   const filterOption = (input: string, option: any) => {
-      return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
   };
-  
 </script>
   
   
