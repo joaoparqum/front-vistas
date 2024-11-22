@@ -13,6 +13,19 @@
         <h1 class="welcome-title">Seja bem-vindo às Vistas Explodidas de Equipamentos!</h1>
         <div class="login-container">
           <Login />
+          <a-button 
+            type="primary" 
+            @click="navegarParaAdicionarDocumento"
+          >
+            Adicionar documento
+          </a-button>
+
+          <a-button 
+            type="primary" 
+            @click="navegarParaTela"
+          >
+            Ver documento
+          </a-button>
         </div>
       </div>
     </a-layout-content>
@@ -25,6 +38,16 @@
 
 <script lang="ts" setup>
   import Login from './Login.vue';
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
+
+  const navegarParaAdicionarDocumento = () => {
+    router.push('/AdicionarDocumento');
+  };
+
+  const navegarParaTela = () => {
+    router.push('/TelaDocumentos');
+  };
 </script>
 
 <style scoped>
