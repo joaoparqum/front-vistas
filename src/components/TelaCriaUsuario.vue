@@ -15,7 +15,7 @@
       <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
         <a-breadcrumb :style="{ margin: '16px 0' }">
         </a-breadcrumb>
-        <div :style="{ background: '#fff', padding: '60px', minHeight: '460px', marginLeft: '180px', marginRight: '180px', minWidth: '370px'}">
+        <div :style="{ background: '#fff', padding: '60px', minHeight: '460px', marginLeft: '160px', marginRight: '180px', minWidth: '370px'}">
           <h1 style="text-align: center;">Cadastro de Usuário</h1>
           <br>
           <div class="form-container"><FormCriaUsuario/></div>
