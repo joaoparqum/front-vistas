@@ -30,7 +30,7 @@
         </div>
     </a-layout-content>
 
-    <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#0404ba', padding: '35px 0' }">
+    <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#0404cf', padding: '35px 0' }">
       <h2 style="color: yellow; margin: 0;">Casa do Construtor | Irecê ©2024</h2>
     </a-layout-footer>
   </a-layout>

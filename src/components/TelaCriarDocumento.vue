@@ -22,7 +22,7 @@
         <FormCriaDocumento/>
       </div>
     </a-layout-content>
-    <a-layout-footer :style="{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', background: '#0404ba' }">
+    <a-layout-footer :style="{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', background: '#0404cf' }">
       <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
     </a-layout-footer>
   </a-layout>
