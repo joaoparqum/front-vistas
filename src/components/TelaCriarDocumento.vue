@@ -17,12 +17,12 @@
 
     <a-layout-content :style="{ padding: '0 50px', marginTop: '64px', paddingBottom: '70px' }">
       <a-breadcrumb :style="{ margin: '16px 0' }"></a-breadcrumb>
-      <div :style="{ background: '#fff', padding: '60px', minHeight: '790px', marginLeft: '180px', marginRight: '180px' }">
+      <div :style="{ background: '#fff', padding: '60px', minHeight: '790px' }">
         <h1 style="text-align: center;">Cadastro de documento</h1>
         <FormCriaDocumento/>
       </div>
     </a-layout-content>
-    <a-layout-footer :style="{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', background: '#00008B' }">
+    <a-layout-footer :style="{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', background: '#0404ba' }">
       <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
     </a-layout-footer>
   </a-layout>
