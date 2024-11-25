@@ -21,7 +21,7 @@
           <div class="form-container"><FormCriaUsuario/></div>
         </div>
       </a-layout-content>
-      <a-layout-footer :style="{ textAlign: 'center', background: '#00008B' }">
+      <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#00008B' }">
         <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
       </a-layout-footer>
     </a-layout>

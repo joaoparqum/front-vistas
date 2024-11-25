@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout :style="{ minHeight: '100vh', position: 'relative'}">
     <a-layout-header 
       :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px' }"
     >
@@ -7,30 +7,30 @@
       <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
     </a-layout-header>
 
-    <a-layout-content :style="{ padding: '0 20px', marginTop: '64px' }">
+    <a-layout-content :style="{ display:'flex', justifyContent:'center', alignItems: 'center', marginTop: '50px' }">
       <a-breadcrumb :style="{ margin: '16px 0' }"></a-breadcrumb>
-      <div class="content-wrapper">
-        <h1 class="welcome-title">Seja bem-vindo às Vistas Explodidas de Equipamentos!</h1>
-        <div class="login-container">
-          <Login />
-          <a-button 
-            type="primary" 
-            @click="navegarParaAdicionarDocumento"
-          >
-            Adicionar documento
-          </a-button>
+        <div class="content-wrapper">
+          <h1 class="welcome-title">Seja bem-vindo às Vistas Explodidas de Equipamentos!</h1>
+          <div class="login-container">
+            <Login />
+            <a-button 
+              type="primary" 
+              @click="navegarParaAdicionarDocumento"
+            >
+              Adicionar documento
+            </a-button>
 
-          <a-button 
-            type="primary" 
-            @click="navegarParaTela"
-          >
-            Ver documento
-          </a-button>
+            <a-button 
+              type="primary" 
+              @click="navegarParaTela"
+            >
+              Ver documento
+            </a-button>
+          </div>
         </div>
-      </div>
     </a-layout-content>
 
-    <a-layout-footer :style="{ textAlign: 'center', background: '#00008B', padding: '35px 0' }">
+    <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#00008B', padding: '35px 0' }">
       <h2 style="color: yellow; margin: 0;">Casa do Construtor | Irecê ©2024</h2>
     </a-layout-footer>
   </a-layout>
