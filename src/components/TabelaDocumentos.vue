@@ -24,7 +24,7 @@
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'nomeArquivo'">
-          <a @click="downloadDocument(record.id, record.nomeArquivo)">
+          <a @click="visualizarDocumento(record.id)">
             {{ record.nomeArquivo }}
           </a>
         </template>
