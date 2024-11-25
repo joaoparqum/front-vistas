@@ -22,12 +22,12 @@
       <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
         <a-breadcrumb :style="{ margin: '16px 0' }">
         </a-breadcrumb>
-        <div :style="{ background: '#fff', padding: '24px', minHeight: '380px' }">
+        <div :style="{ background: '#fff', padding: '24px', minHeight: '790px' }">
           <h1 style="text-align: center;">Tabela de Vistas Explodidas</h1>
           <TabelaDocumentos/>
         </div>
       </a-layout-content>
-      <a-layout-footer :style="{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', background: '#00008B' }">
+      <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#00008B' }">
         <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
       </a-layout-footer>
     </a-layout>
