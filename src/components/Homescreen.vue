@@ -13,41 +13,21 @@
           <h1 class="welcome-title">Seja bem-vindo às Vistas Explodidas de Equipamentos!</h1>
           <div class="login-container">
             <Login />
-            <a-button 
-              type="primary" 
-              @click="navegarParaAdicionarDocumento"
-            >
-              Adicionar documento
-            </a-button>
-
-            <a-button 
-              type="primary" 
-              @click="navegarParaTela"
-            >
-              Ver documento
-            </a-button>
           </div>
         </div>
     </a-layout-content>
 
     <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#0404cf', padding: '35px 0' }">
-      <h2 style="color: yellow; margin: 0;">Casa do Construtor | Irecê ©2024</h2>
+      <h2 style="color: yellow; margin: 0;">Casa do Construtor | Setor de TI - Irecê ©{{ currentYear }}</h2>
     </a-layout-footer>
   </a-layout>
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
   import Login from './Login.vue';
-  import { useRouter } from 'vue-router';
-  const router = useRouter();
 
-  const navegarParaAdicionarDocumento = () => {
-    router.push('/AdicionarDocumento');
-  };
-
-  const navegarParaTela = () => {
-    router.push('/TelaDocumentos');
-  };
+  const currentYear = ref(new Date().getFullYear());
 </script>
 
 <style scoped>

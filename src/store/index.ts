@@ -158,7 +158,9 @@ const store = createStore({
           responseType: 'blob', // Certifique-se de receber como blob
         });
     
-        const documentUrl = window.URL.createObjectURL(new Blob([response.data]));
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+        const documentUrl = window.URL.createObjectURL(blob);
+
         commit('setDocument', documentUrl);
         return documentUrl;
       } catch (error) {

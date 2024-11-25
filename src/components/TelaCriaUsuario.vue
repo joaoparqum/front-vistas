@@ -22,7 +22,7 @@
         </div>
       </a-layout-content>
       <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#0404cf' }">
-        <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
+        <h2 style="color: yellow;">Casa do Construtor | Irecê ©{{ currentYear }}</h2>
       </a-layout-footer>
     </a-layout>
   </template>
@@ -34,10 +34,11 @@
   import { message } from 'ant-design-vue';
   import { useRouter } from 'vue-router';
   import { LogoutOutlined } from '@ant-design/icons-vue';
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
 
   const router = useRouter();
   const store = useStore();
+  const currentYear = ref(new Date().getFullYear());
 
   const fazerLogout = () => {
     store.dispatch('logout');

@@ -28,7 +28,7 @@
         </div>
       </a-layout-content>
       <a-layout-footer :style="{ position: 'relative', bottom: 0, width: '100%', textAlign: 'center', background: '#0404cf' }">
-        <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
+        <h2 style="color: yellow;">Casa do Construtor | Setor de TI - Irecê ©{{ currentYear }}</h2>
       </a-layout-footer>
     </a-layout>
   </template>
@@ -44,6 +44,7 @@
     const router = useRouter();
     const store = useStore();
     const username = ref<string | null>(null);
+    const currentYear = ref(new Date().getFullYear());
 
     onMounted(() => {
         username.value = localStorage.getItem('login');
