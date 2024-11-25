@@ -41,6 +41,8 @@
             <a @click="deleteDocument(record.id)">Deletar</a>
             <a-divider type="vertical" />
           </span>
+          <a @click="visualizarDocumento(record.id)">Visualizar</a>
+          <a-divider type="vertical" />
           <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
         </template>
       </template>
@@ -77,6 +79,24 @@
   const downloadDocument = (DocumentCode: string, nomeArquivo: string) => {
     store.dispatch('searchDocumentByCode', { DocumentCode, nomeArquivo });
     store.dispatch('fetchData');
+  };
+
+  const visualizarDocumento = async (documentId: string) => {
+
+    try {
+      await store.dispatch('fetchDocumentByCode', { DocumentCode: documentId });
+
+      const documentUrl = store.getters.documentUrl;
+
+      if(documentUrl) {
+        window.open(documentUrl, '_blank');
+      } else {
+        console.error('URL do documento não encontrado!');
+      }
+    } catch (error) {
+      console.error('Erro ao visualizar o documento:', error);
+    }
+
   };
 
   const deleteDocument = (id: string) => {
@@ -152,8 +172,3 @@
     }
   }
 </style>
-
-  
-  
-  
-  

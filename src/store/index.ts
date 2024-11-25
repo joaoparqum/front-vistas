@@ -154,12 +154,13 @@ const store = createStore({
       { DocumentCode }: { DocumentCode: string})
     {
       try {
-        const response = await axios.get(`http://localhost:8080/vistas/id/${DocumentCode}`, {
+        const response = await axios.get(`http://localhost:8080/vistas/view/${DocumentCode}`, {
           responseType: 'blob', // Certifique-se de receber como blob
         });
     
         const documentUrl = window.URL.createObjectURL(new Blob([response.data]));
-        commit('setDocument', documentUrl); // Armazena a URL do Blob no estado
+        commit('setDocument', documentUrl);
+        return documentUrl;
       } catch (error) {
         console.error('Erro ao carregar o conteúdo do documento:', error);
         commit('setDocument', null);
