@@ -20,7 +20,7 @@
       :columns="columns" 
       :data-source="data" 
       :scroll="{ x: 800 }" 
-      :pagination="{ pageSize: 8 }"
+      :pagination="{ pageSize: 6 }"
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'nomeArquivo'">

@@ -1,5 +1,5 @@
 <template>
-    <a-layout>
+    <a-layout :style="{ minHeight: '100vh', position: 'relative'}">
   
       <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }">
         <div style="display: flex; align-items: center;">
@@ -27,7 +27,7 @@
           <TabelaDocumentos/>
         </div>
       </a-layout-content>
-      <a-layout-footer :style="{ textAlign: 'center', background: '#00008B' }">
+      <a-layout-footer :style="{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', background: '#00008B' }">
         <h2 style="color: yellow;">Casa do Construtor | Irecê ©2024</h2>
       </a-layout-footer>
     </a-layout>
