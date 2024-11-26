@@ -1,20 +1,22 @@
 <template>
     <a-layout :style="{ minHeight: '100vh', position: 'relative'}">
   
-      <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }">
+      <a-layout-header 
+        :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px' }"
+      >
         <div style="display: flex; align-items: center;">
           <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;" /> 
-          <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
+          <h1 class="header-title">Vistas Explodidas</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
-          <p style="color: white; font-weight: bold; margin: 0;">Olá, {{ username }}!</p>
-          <a-button v-if="isAdmin" type="primary" @click="cadastrarUsuario()">
-            <UserAddOutlined />
-            Registrar usuário
-          </a-button>
-          <a-button type="primary" @click="fazerLogout()">
+          <p class="header-greeting">Olá, {{ username }}!</p>
+          <a-button 
+            type="primary" 
+            @click="fazerLogout()"
+            class="logout-button"
+          >
             <LogoutOutlined />
-            Sair
+            <span class="button-text">Sair</span>
           </a-button>
         </div>
       </a-layout-header>
@@ -38,8 +40,8 @@
     import { useStore } from 'vuex';
     import { message } from 'ant-design-vue';
     import { useRouter } from 'vue-router';
-    import { LogoutOutlined, UserAddOutlined } from '@ant-design/icons-vue';
-    import { computed, onMounted, ref } from 'vue';
+    import { LogoutOutlined } from '@ant-design/icons-vue';
+    import { onMounted, ref } from 'vue';
 
     const router = useRouter();
     const store = useStore();
@@ -60,7 +62,7 @@
       }, 2000);
     }
 
-    const cadastrarUsuario = () => {
+    /*const cadastrarUsuario = () => {
       setTimeout(() => {
         router.push('/TelaCriaUsuario')
       }, 2000);
@@ -70,9 +72,7 @@
       const role = localStorage.getItem('role');
       console.log('Usuário carregado:', role);
       return role === 'admin';
-    });
-
-
+    });*/
   </script>
   
   <style scoped>
@@ -90,5 +90,49 @@
   
     [data-theme='dark'] .site-layout .site-layout-background {
       background: #141414;
+    }
+
+    .header-title {
+      color: white;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .header-greeting {
+      color: white;
+      font-weight: bold;
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .register-button,
+    .logout-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      padding: 5px 15px;
+    }
+
+    .button-text {
+      margin-left: 5px; /* Espaço entre o ícone e o texto */
+    }
+
+    /* Ajustes para dispositivos móveis */
+    @media (max-width: 768px) {
+      .header-title {
+        font-size: 10px;
+      }
+
+      .header-greeting {
+        font-size: 6px;
+      }
+
+      .register-button,
+      .logout-button {
+        font-size: 12px; /* Reduz o tamanho da fonte */
+        padding: 5px 10px; /* Ajusta o espaçamento interno */
+      }
+
     }
   </style>

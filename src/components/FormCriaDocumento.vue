@@ -63,9 +63,9 @@
       console.error('Erro ao enviar o documento:', error);
     }
   };
-  </script>
+</script>
 
-  <style scoped>
+<style scoped>
   .form-container {
     display: flex;
     justify-content: center;

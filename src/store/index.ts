@@ -180,8 +180,10 @@ const store = createStore({
           },
         });
         dispatch('fetchData');
+        message.success('Documento deletado com sucesso!');
       } catch (error) {
         console.error('Erro ao excluir o documento:', error);
+        message.error('Erro ao excluir documento!');
       }
     },
     async addDocument(

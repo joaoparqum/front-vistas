@@ -5,7 +5,17 @@
       @click="navegarParaAdicionarDocumento"
       v-if="isAdmin"
     >
+      <FileAddOutlined />
       Adicionar documento
+    </a-button>
+    <a-button 
+      v-if="isAdmin" 
+      type="primary" 
+      @click="cadastrarUsuario()"
+      class="register-button"
+    >
+      <UserAddOutlined />
+      <span class="button-text">Registrar usuário</span>
     </a-button>
     <br /><br />
     <a-input-search
@@ -55,10 +65,17 @@
   import { computed, onMounted, ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
   import { message } from 'ant-design-vue';
+  import { FileAddOutlined, UserAddOutlined } from '@ant-design/icons-vue';
 
   const router = useRouter();
   const searchTerm = ref('');
   const store = useStore();
+
+  const cadastrarUsuario = () => {
+    setTimeout(() => {
+      router.push('/TelaCriaUsuario')
+    }, 2000);
+  }
 
   const isAdmin = computed(() => {
     const role = localStorage.getItem('role');
@@ -177,5 +194,15 @@
     .table-container {
       padding: 0 10px;
     }
+  }
+
+  @media (max-width: 768px) {
+    .register-button {
+      margin-top: 5px;
+    }
+  }
+
+  .register-button {
+    margin-left: 5px;
   }
 </style>

@@ -32,17 +32,30 @@
   
       <a-form-item>
         <a-button :disabled="disabled" type="primary" html-type="submit" class="login-form-button">
+          <LoginOutlined />
           Entrar
         </a-button>
         Ou
         <a @click="navegarParaCriarUsuario()">Registre-se agora!</a>
+        <a-button 
+              type="primary" 
+              @click="navegarParaAdicionarDocumento"
+            >
+              Adicionar documento
+            </a-button>
+            <a-button 
+              type="primary" 
+              @click="navegarTelaDocumento"
+            >
+              ver documento
+            </a-button>
       </a-form-item>
     </a-form>
 </template>
 
 <script lang="ts" setup>
   import { reactive, computed } from 'vue';
-  import { UserOutlined, LockOutlined } from '@ant-design/icons-vue';
+  import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons-vue';
   import { useRouter } from 'vue-router';
   import { useStore } from 'vuex';
 
@@ -51,6 +64,14 @@
 
   const navegarParaCriarUsuario = () => {
       router.push('/TelaCriaUsuario');
+  };
+
+  const navegarParaAdicionarDocumento = () => {
+    router.push('/AdicionarDocumento');
+  };
+
+  const navegarTelaDocumento = () => {
+    router.push('/TelaDocumentos');
   };
 
   interface FormState {

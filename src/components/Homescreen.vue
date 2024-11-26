@@ -1,5 +1,6 @@
 <template>
   <a-layout :style="{ minHeight: '100vh', position: 'relative'}">
+
     <a-layout-header 
       :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px' }"
     >

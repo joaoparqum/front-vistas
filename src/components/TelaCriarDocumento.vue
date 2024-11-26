@@ -1,13 +1,15 @@
 <template>
   <a-layout :style="{ minHeight: '100vh', position: 'relative'}">
 
-    <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }">
+    <a-layout-header 
+      :style="{ position: 'fixed', zIndex: 1, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px' }"
+    >
         <div style="display: flex; align-items: center;">
           <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;"/> 
-          <h1 style="color: white; margin: 0;">Vistas Explodidas</h1>
+          <h1 class="header-title">Vistas Explodidas</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
-          <p style="color: white; font-weight: bold; margin: 0;">Olá, {{ username }}!</p>
+          <p class="header-greeting">Olá, {{ username }}!</p>
           <a-button type="primary" @click="fazerLogout()">
             <LogoutOutlined />
             Sair
@@ -23,7 +25,7 @@
       </div>
     </a-layout-content>
     <a-layout-footer :style="{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', background: '#0404cf' }">
-      <h2 style="color: yellow;">Casa do Construtor | Irecê ©{{ currentYear }}</h2>
+      <h2 style="color: yellow;">Casa do Construtor | Setor de TI - Irecê ©{{ currentYear }}</h2>
     </a-layout-footer>
   </a-layout>
 </template>
@@ -70,6 +72,30 @@
 
   [data-theme='dark'] .site-layout .site-layout-background {
     background: #141414;
+  }
+
+  .header-title {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .header-greeting {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    font-size: 16px;
+  }
+
+  /* Ajustes para dispositivos móveis */
+  @media (max-width: 768px) {
+    .header-title {
+      font-size: 10px;
+    }
+
+    .header-greeting {
+      font-size: 6px;
+    }
   }
 </style>
 
