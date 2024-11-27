@@ -37,18 +37,6 @@
         </a-button>
         Ou
         <a @click="navegarParaCriarUsuario()">Registre-se agora!</a>
-        <a-button 
-              type="primary" 
-              @click="navegarParaAdicionarDocumento"
-            >
-              Adicionar documento
-            </a-button>
-            <a-button 
-              type="primary" 
-              @click="navegarTelaDocumento"
-            >
-              ver documento
-            </a-button>
       </a-form-item>
     </a-form>
 </template>
@@ -64,14 +52,6 @@
 
   const navegarParaCriarUsuario = () => {
       router.push('/TelaCriaUsuario');
-  };
-
-  const navegarParaAdicionarDocumento = () => {
-    router.push('/AdicionarDocumento');
-  };
-
-  const navegarTelaDocumento = () => {
-    router.push('/TelaDocumentos');
   };
 
   interface FormState {
