@@ -60,7 +60,7 @@ const store = createStore({
       { username, password }: { username: string; password: string }) 
     {
       try {
-        const response = await axios.post('http://localhost:8080/auth/login', {
+        const response = await axios.post('http://24.144.93.247/api/auth/login', {
           login: username,
           password: password,
         });
@@ -101,7 +101,7 @@ const store = createStore({
       userData: any) 
     {
       try {
-        const response = await axios.post('http://localhost:8080/auth/register', userData);
+        const response = await axios.post('http://24.144.93.247/api/auth/register', userData);
         console.log('Usuário cadastrado com sucesso:', response.data);
         message.success('Usuário cadastrado com sucesso!');
         commit('setUser', userData);
@@ -112,7 +112,7 @@ const store = createStore({
     },
     async fetchData({ commit }: { commit: (mutation: string, payload?: any) => void }) {
       try {
-        const response = await axios.get('http://localhost:8080/vistas');
+        const response = await axios.get('http://24.144.93.247/api/vistas');
         commit('setData', response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
@@ -123,7 +123,7 @@ const store = createStore({
       { DocumentCode, nomeArquivo }: { DocumentCode: string; nomeArquivo: string }
     ) {
       try {
-        const response = await axios.get(`http://localhost:8080/vistas/download/${DocumentCode}`, {
+        const response = await axios.get(`http://24.144.93.247/api/vistas/download/${DocumentCode}`, {
           responseType: 'blob',
         });
         const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -143,7 +143,7 @@ const store = createStore({
       nomeArquivo: string) 
     {
       try {
-        const response = await axios.get(`http://localhost:8080/vistas/nomeArquivo/${nomeArquivo}`);
+        const response = await axios.get(`http://24.144.93.247/api/vistas/nomeArquivo/${nomeArquivo}`);
         commit('setData', response.data);
       } catch (error) {
         console.log("Erro ao buscar documento pelo nome!");
@@ -154,7 +154,7 @@ const store = createStore({
       { DocumentCode }: { DocumentCode: string})
     {
       try {
-        const response = await axios.get(`http://localhost:8080/vistas/view/${DocumentCode}`, {
+        const response = await axios.get(`http://24.144.93.247/api/vistas/view/${DocumentCode}`, {
           responseType: 'blob', // Certifique-se de receber como blob
         });
     
@@ -174,7 +174,7 @@ const store = createStore({
       id: string) 
     {
       try {
-        await axios.delete(`http://localhost:8080/vistas/delete/${id}`, {
+        await axios.delete(`http://24.144.93.247/api/vistas/delete/${id}`, {
           headers: {
             'Authorization': `Bearer ${state.token}`,
           },
@@ -193,7 +193,7 @@ const store = createStore({
       try {
         const formData = new FormData();
         formData.append('file', file);
-        await axios.post('http://localhost:8080/vistas/upload', formData, {
+        await axios.post('http://24.144.93.247/api/vistas/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `Bearer ${state.token}`
