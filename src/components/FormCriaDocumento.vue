@@ -35,7 +35,7 @@
   import { message } from 'ant-design-vue';
 
   const store = useStore();
-  const fileList: File[] = [];
+  let fileList: File[] = [];
   const router = useRouter();
 
   // Função para capturar o arquivo antes de enviar
