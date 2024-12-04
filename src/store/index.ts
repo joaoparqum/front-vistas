@@ -188,7 +188,7 @@ const store = createStore({
       }
     },
     async addDocument(
-      { state, dispatch }: { state: State; dispatch: (action: string, payload?: any) => Promise<any> }, 
+      { dispatch }: { state: State; dispatch: (action: string, payload?: any) => Promise<any> }, 
       file: File) 
     {
       try {
