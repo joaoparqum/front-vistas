@@ -194,10 +194,11 @@ const store = createStore({
       try {
         const formData = new FormData();
         formData.append('file', file);
+        const token = localStorage.getItem('token');
         await axios.post('http://24.144.93.247/api/vistas/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${state.token}`
+            'Authorization': `Bearer ${token}`
           },
         });
         dispatch('fetchData');
