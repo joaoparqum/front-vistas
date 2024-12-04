@@ -52,8 +52,6 @@
             <a-divider type="vertical" />
           </span>
           <a @click="visualizarDocumento(record.id)">Visualizar</a>
-          <a-divider type="vertical" />
-          <a @click="downloadDocument(record.id, record.nomeArquivo)">Baixar</a>
         </template>
       </template>
     </a-table>
@@ -93,10 +91,10 @@
     store.dispatch('fetchData');
   });
 
-  const downloadDocument = (DocumentCode: string, nomeArquivo: string) => {
+  /*const downloadDocument = (DocumentCode: string, nomeArquivo: string) => {
     store.dispatch('searchDocumentByCode', { DocumentCode, nomeArquivo });
     store.dispatch('fetchData');
-  };
+  };*/
 
   const visualizarDocumento = async (documentId: string) => {
 
