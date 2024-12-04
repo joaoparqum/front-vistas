@@ -17,7 +17,7 @@ const store = createStore({
   state() {
     return {
       data: [],
-      token: null,
+      token: localStorage.getItem('token'),
       user: null,
       role: null,
       login: null,
@@ -31,6 +31,7 @@ const store = createStore({
     },
     setToken(state: State, token: string) {
       state.token = token;
+      console.log('Token atualizado no estado:', state.token);
     },
     setUser(state: State, user: string) {
       state.user = user;
