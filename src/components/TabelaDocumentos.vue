@@ -104,14 +104,7 @@
       const documentUrl = store.getters.documentUrl;
 
       if(documentUrl) {
-        const novaJanela = window.open();
-        if(novaJanela) {
-          novaJanela.document.write(
-            `<iframe src="${documentUrl}" width="100%" height="100%" style="border:none;"></iframe>`
-          );
-        } else {
-          console.log('Erro ao abrir nova guia!');
-        }
+        window.location.href = documentUrl;
       } else {
         console.error('URL do documento não encontrado!');
       }
