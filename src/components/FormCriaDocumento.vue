@@ -35,12 +35,12 @@
   import { message } from 'ant-design-vue';
 
   const store = useStore();
-  const fileList: File[] = [];
   const router = useRouter();
+  const fileList: File[] = [];
 
-  // Função para capturar o arquivo antes de enviar
   const beforeUpload = (file: File) => {
-    fileList[0] = file; // Armazena o arquivo selecionado
+    // Modifique o conteúdo do array, mas não reatribua a variável
+    fileList.push(file);  // Ou qualquer outra modificação que não envolva reatribuição
     return false; // Impede o upload automático
   };
 
