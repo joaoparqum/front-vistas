@@ -104,7 +104,7 @@
       const documentUrl = store.getters.documentUrl;
 
       if(documentUrl) {
-        window.location.href = documentUrl;
+        window.open(documentUrl, '_blank');
       } else {
         console.error('URL do documento não encontrado!');
       }
