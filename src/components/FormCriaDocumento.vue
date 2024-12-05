@@ -32,22 +32,29 @@
 <script lang="ts" setup>
   import { useStore } from 'vuex'; // Para acessar a store Vuex
   import { useRouter } from 'vue-router';
-  import { message } from 'ant-design-vue';
+  import { message, UploadFile } from 'ant-design-vue';
 
   const store = useStore();
-  let fileList: File[] = [];
+  let fileList: UploadFile[] = [];
   const router = useRouter();
 
   // Função para capturar o arquivo antes de enviar
   const beforeUpload = (file: File) => {
-    fileList[0] = file; // Armazena o arquivo selecionado
+    const uploadFile: UploadFile = {
+      uid: String(Date.now()), // Gera um identificador único
+      name: file.name,
+      status: 'done', // O status pode ser 'done', 'uploading', ou 'error', dependendo do seu fluxo
+      url: URL.createObjectURL(file), // URL do arquivo, se necessário
+    };
+
+    fileList = [uploadFile]; // Atualiza o fileList com o novo arquivo
     return false; // Impede o upload automático
   };
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
 
-    if (fileList.length === 0) {
+    if (!fileList[0]) {
       console.error('Nenhum arquivo foi selecionado.');
       return;
     }
