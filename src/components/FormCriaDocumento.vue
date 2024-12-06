@@ -12,8 +12,12 @@
         required
       >
         <a-upload
-          v-model:fileList="fileList"
           :before-upload="beforeUpload"
+          :file-list="fileList.map(file => ({
+            uid: file.name,
+            name: file.name,
+            status: 'done',
+          }))"
           :multiple="false"
           :max-count="1"
           list-type="text"
@@ -30,40 +34,41 @@
 </template>
 
 <script lang="ts" setup>
-  import { useStore } from 'vuex'; // Para acessar a store Vuex
+  import { ref } from 'vue'; // Importa ref para estados reativos
+  import { useStore } from 'vuex';
   import { useRouter } from 'vue-router';
   import { message } from 'ant-design-vue';
 
   const store = useStore();
   const router = useRouter();
-  const fileList: File[] = [];
+  const fileList = ref<File[]>([]); // Cria uma referência reativa
 
+  // Função para capturar o arquivo antes de enviar
   const beforeUpload = (file: File) => {
-    // Modifique o conteúdo do array, mas não reatribua a variável
-    fileList.push(file);  // Ou qualquer outra modificação que não envolva reatribuição
+    fileList.value = [file]; // Atualiza o estado reativo
     return false; // Impede o upload automático
   };
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
 
-    if (!fileList[0]) {
+    if (fileList.value.length === 0) {
       console.error('Nenhum arquivo foi selecionado.');
       return;
     }
 
     try {
-      await store.dispatch('addDocument', fileList[0]);
+      await store.dispatch('addDocument', fileList.value[0]);
       message.success('Documento cadastrado com sucesso!');
       setTimeout(() => {
         router.push('/TelaDocumentos');
       }, 2000);
-      console.log('Arquivo enviado com sucesso.');
     } catch (error) {
       console.error('Erro ao enviar o documento:', error);
     }
   };
 </script>
+
 
 <style scoped>
   .form-container {
