@@ -104,15 +104,7 @@
       const documentUrl = store.getters.documentUrl;
 
       if(documentUrl) {
-        //window.open(documentUrl, '_blank');
-        const novaJanela = window.open('', '_blank');
-        if (novaJanela) {
-          novaJanela.document.body.style.margin = '0';
-          novaJanela.document.body.style.height = '100vh';
-          novaJanela.document.body.innerHTML = `
-            <iframe src="${documentUrl}" width="100%" height="100%" style="border:none;"></iframe>
-          `;
-        } 
+        window.open(documentUrl, '_blank');
       } else {
         console.error('URL do documento não encontrado!');
       }
