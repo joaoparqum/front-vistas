@@ -47,11 +47,27 @@
           <span>{{ (record.tamanhoArquivo / 1024).toFixed(2) }} KB</span>
         </template>
         <template v-else-if="column.key === 'action'">
+          <a-button 
+            type="primary" 
+            :loading="loading[record.id]" 
+            size="small" 
+            @click="visualizarDocumento(record.id)"
+            class="visualizer-button"
+          >
+            Visualizar
+          </a-button>
           <span v-if="isAdmin">
-            <a @click="deleteDocument(record.id)">Deletar</a>
             <a-divider type="vertical" />
+            <a-button 
+              type="primary"  
+              size="small" 
+              @click="deleteDocument(record.id)"
+              class="delete-button"
+            >
+              <DeleteOutlined />
+              Deletar
+            </a-button>
           </span>
-          <a @click="visualizarDocumento(record.id)">Visualizar</a>
         </template>
       </template>
     </a-table>
@@ -63,7 +79,7 @@
   import { computed, onMounted, ref, watch } from 'vue';
   import { useRouter } from 'vue-router';
   import { message } from 'ant-design-vue';
-  import { FileAddOutlined, UserAddOutlined } from '@ant-design/icons-vue';
+  import { DeleteOutlined, FileAddOutlined, UserAddOutlined } from '@ant-design/icons-vue';
 
   const router = useRouter();
   const searchTerm = ref('');
@@ -96,22 +112,27 @@
     store.dispatch('fetchData');
   };*/
 
+  const loading = ref<Record<string, boolean>>({});
+
   const visualizarDocumento = async (documentId: string) => {
-
     try {
-      await store.dispatch('fetchDocumentByCode', { DocumentCode: documentId });
+      // Define o estado de carregamento apenas para o botão clicado
+      loading.value = { ...loading.value, [documentId]: true };
 
+      await store.dispatch('fetchDocumentByCode', { DocumentCode: documentId });
       const documentUrl = store.getters.documentUrl;
 
-      if(documentUrl) {
+      if (documentUrl) {
         window.open(documentUrl, '_blank');
       } else {
         console.error('URL do documento não encontrado!');
       }
     } catch (error) {
       console.error('Erro ao visualizar o documento:', error);
+    } finally {
+      // Remove o estado de carregamento do botão
+      loading.value = { ...loading.value, [documentId]: false };
     }
-
   };
 
   const deleteDocument = (id: string) => {
@@ -196,4 +217,9 @@
   .register-button {
     margin-left: 5px;
   }
+
+  .visualizer-button {
+    margin-bottom: 5px;
+  }
+
 </style>
