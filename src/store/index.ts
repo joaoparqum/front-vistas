@@ -119,6 +119,24 @@ const store = createStore({
         console.error('Erro ao buscar dados:', error);
       }
     },
+    restoreState({ commit }: { commit: (mutation: string, payload?: any) => void }) {
+      const token = localStorage.getItem('token');
+      const role = localStorage.getItem('role');
+      const login = localStorage.getItem('login');
+  
+      if (token) {
+        commit('setToken', token);
+        commit('login'); // Define o estado como logado
+      }
+  
+      if (role) {
+        commit('setRole', role);
+      }
+  
+      if (login) {
+        commit('setLogin', login);
+      }
+    },
     async searchDocumentByCode(
       { commit }: { commit: (mutation: string, payload?: any) => void },
       { DocumentCode, nomeArquivo }: { DocumentCode: string; nomeArquivo: string }
