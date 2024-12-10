@@ -35,8 +35,6 @@
           <LoginOutlined />
           Entrar
         </a-button>
-        Ou
-        <a @click="navegarParaCriarUsuario()">Registre-se agora!</a>
       </a-form-item>
     </a-form>
 </template>
@@ -49,10 +47,6 @@
 
   const router = useRouter();
   const store = useStore();
-
-  const navegarParaCriarUsuario = () => {
-      router.push('/TelaCriaUsuario');
-  };
 
   interface FormState {
     username: string;
