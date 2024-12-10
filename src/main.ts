@@ -5,9 +5,9 @@ import store from './store'
 import router from './router';
 //import './axiosConfig';
 
-createApp(App)
-    .use(store)
-    .use(router)
-    .mount('#app')
-
-store.dispatch('restoreState');    
+store.dispatch('restoreState').then(() => {
+    createApp(App)
+      .use(store)
+      .use(router)
+      .mount('#app');
+  });   

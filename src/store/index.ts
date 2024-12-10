@@ -130,7 +130,7 @@ const store = createStore({
       }
   
       if (role) {
-        commit('setRole', role);
+        commit('setUser', role);
       }
   
       if (login) {
