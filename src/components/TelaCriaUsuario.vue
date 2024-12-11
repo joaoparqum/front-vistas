@@ -8,10 +8,17 @@
           <img src="/casa-logo.jpg" alt="Logo" style="margin-right: 10px; height: 40px;"/> 
           <h1 class="header-title">Vistas Explodidas</h1>
         </div>  
-        <a-button v-if="isAdmin" type="primary" @click="fazerLogout()">
-          <LogoutOutlined />
-          Sair
-        </a-button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <p class="header-greeting">Olá, {{ username }}!</p>
+          <a-button 
+            type="primary" 
+            @click="fazerLogout()"
+            class="logout-button"
+          >
+            <LogoutOutlined />
+            <span class="button-text">Sair</span>
+          </a-button>
+        </div>
       </a-layout-header>
   
       <a-layout-content :style="{ display:'flex', justifyContent:'center', alignItems: 'center', marginTop: '50px' }">
@@ -36,11 +43,16 @@
   import { message } from 'ant-design-vue';
   import { useRouter } from 'vue-router';
   import { LogoutOutlined } from '@ant-design/icons-vue';
-  import { computed, ref } from 'vue';
+  import { onMounted, ref } from 'vue';
 
   const router = useRouter();
   const store = useStore();
   const currentYear = ref(new Date().getFullYear());
+  const username = ref<string | null>(null);
+
+  onMounted(() => {
+        username.value = localStorage.getItem('login');
+  });
 
   const fazerLogout = () => {
     store.dispatch('logout');
@@ -52,11 +64,11 @@
     }, 2000);
   }
 
-  const isAdmin = computed(() => {
+  /*const isAdmin = computed(() => {
     const role = localStorage.getItem('role');
     console.log('Usuário carregado:', role);
     return role === 'admin' || role === 'user';
-  });
+  });*/
 </script>
   
 <style scoped>
@@ -89,9 +101,20 @@
     font-size: 24px;
   }
 
+  .header-greeting {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    font-size: 16px;
+  }
+
   @media (max-width: 768px) {
     .header-title {
       font-size: 10px;
+    }
+
+    .header-greeting {
+      font-size: 6px;
     }
   }
 </style>
