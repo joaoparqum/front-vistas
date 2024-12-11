@@ -20,14 +20,14 @@ const router = createRouter({
 // Adicionando a guarda de navegação para proteger as rotas
 router.beforeEach((to, _from, next) => {
   const store = useStore();
+  console.log('Token no beforeEach:', store.state.token);
 
   // Checa se a rota requer autenticação
   if (to.meta.requiresAuth) {
-    // Verifica se o token existe na store ou no localStorage
-    const token = store.state.token || localStorage.getItem('token');
-    if (token) {
+    if (store.state.token) { // Confia apenas no Vuex
       next(); // Permite o acesso
     } else {
+      console.log('Redirecionando para login, token ausente.');
       next('/'); // Redireciona para a tela de login
     }
   } else {

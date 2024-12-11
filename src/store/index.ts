@@ -31,7 +31,6 @@ const store = createStore({
     },
     setToken(state: State, token: string) {
       state.token = token;
-      console.log('Token atualizado no estado:', state.token);
     },
     setUser(state: State, user: string) {
       state.user = user;
@@ -77,7 +76,6 @@ const store = createStore({
         localStorage.setItem('role', role);
         localStorage.setItem('login', login);
 
-        console.log('token:', token);
         console.log('role:', role);
         console.log('login:', login);
 
@@ -123,6 +121,8 @@ const store = createStore({
       const token = localStorage.getItem('token');
       const role = localStorage.getItem('role');
       const login = localStorage.getItem('login');
+
+      console.log('Restaurando estado do token:', token);
   
       if (token) {
         commit('setToken', token);
