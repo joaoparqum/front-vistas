@@ -34,7 +34,7 @@
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'nomeArquivo'">
-          <a @click="visualizarDocumento(record.id)">
+          <a @click="openDocumentByName(record.id)">
             {{ record.nomeArquivo }}
           </a>
         </template>
@@ -111,6 +111,22 @@
     store.dispatch('searchDocumentByCode', { DocumentCode, nomeArquivo });
     store.dispatch('fetchData');
   };*/
+
+  const openDocumentByName = async (documentId: string) => {
+    message.loading({ content: 'Carregando documento...' });
+    await store.dispatch('fetchDocumentByCode', { DocumentCode: documentId });
+      const documentUrl = store.getters.documentUrl;
+
+      if (documentUrl) {
+        window.open(documentUrl, '_blank');
+      } else {
+        console.error('URL do documento não encontrado!');
+        message.error('Erro na abertura do documento!');
+      }
+    setTimeout(() => {
+      message.success({ content: 'Documento carregado!', duration: 2 });
+    }, 1000);
+  };
 
   const loading = ref<Record<string, boolean>>({});
 
@@ -204,7 +220,7 @@
   /* Responsividade */
   @media (max-width: 1024px) {
     .table-container {
-      padding: 0 10px;
+      padding: 0 5px;
     }
   }
 
