@@ -122,7 +122,6 @@ const store = createStore({
       const role = localStorage.getItem('role');
       const login = localStorage.getItem('login');
 
-      console.log('Restaurando estado do token:', token);
   
       if (token) {
         commit('setToken', token);

@@ -20,7 +20,6 @@ const router = createRouter({
 // Adicionando a guarda de navegação para proteger as rotas
 router.beforeEach((to, _from, next) => {
   const store = useStore();
-  console.log('Token no beforeEach:', store.state.token);
 
   // Checa se a rota requer autenticação
   if (to.meta.requiresAuth) {
