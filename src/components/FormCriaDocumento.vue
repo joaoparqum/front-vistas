@@ -71,6 +71,7 @@
 
     try {
       // Envia todos os arquivos na lista
+      message.loading({ content: 'Carregando documento no sistema...' });
       await store.dispatch('addDocument', fileList.value);
       message.success('Documentos cadastrados com sucesso!');
       setTimeout(() => {
