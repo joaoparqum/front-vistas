@@ -44,6 +44,7 @@
   import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons-vue';
   import { useRouter } from 'vue-router';
   import { useStore } from 'vuex';
+import { message } from 'ant-design-vue';
 
   const router = useRouter();
   const store = useStore();
@@ -64,7 +65,7 @@
       username: formState.username,
       password: formState.password,
     });
-
+    message.loading({ content: 'Fazendo o login no sistema...' });
     if (success) {
       setTimeout(() => {
         router.push('/TelaDocumentos');

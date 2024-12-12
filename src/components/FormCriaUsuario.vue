@@ -51,7 +51,7 @@
 <script lang="ts" setup>
   import { reactive, ref } from 'vue';
   import { useStore } from 'vuex';
-  import type { SelectProps } from 'ant-design-vue';
+  import { message, type SelectProps } from 'ant-design-vue';
 
   const store = useStore();
 
@@ -74,6 +74,7 @@
 
   const onFinish = async () => {
     try {
+      message.loading({ content: 'Criando novo usuário...' });
       await store.dispatch('registerUser', {
         login: formState.username,
         password: formState.password,
