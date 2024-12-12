@@ -8,26 +8,30 @@
     >
       <a-form-item
         name="upload"
-        label="Upload do Documento"
+        label="Upload de Documentos"
         required
       >
         <a-upload
+          :file-list="fileList"
           :before-upload="beforeUpload"
-          :file-list="fileList.map(file => ({
-            uid: file.name,
-            name: file.name,
-            status: 'done',
-          }))"
-          :multiple="false"
-          :max-count="1"
+          :on-remove="handleRemove"
+          :multiple="true"
           list-type="text"
         >
-          <a-button>Clique para fazer upload</a-button>
+          <a-button>
+            Clique para fazer upload
+          </a-button>
         </a-upload>
       </a-form-item>
 
       <a-form-item>
-        <a-button type="primary" html-type="submit">Enviar Documento</a-button>
+        <a-button 
+          type="primary" 
+          html-type="submit" 
+          :disabled="fileList.length === 0"
+        >
+          Enviar Documentos
+        </a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -43,10 +47,18 @@
   const router = useRouter();
   const fileList = ref<File[]>([]); // Cria uma referência reativa
 
-  // Função para capturar o arquivo antes de enviar
+  // Função para capturar os arquivos antes de enviar
   const beforeUpload = (file: File) => {
-    fileList.value = [file]; // Atualiza o estado reativo
+    fileList.value = [...fileList.value, file]; // Adiciona o arquivo à lista
     return false; // Impede o upload automático
+  };
+
+  // Função para remover arquivos da lista
+  const handleRemove = (file: File) => {
+    const index = fileList.value.indexOf(file);
+    if (index !== -1) {
+      fileList.value.splice(index, 1);
+    }
   };
 
   const handleSubmit = async (e: Event) => {
@@ -58,13 +70,14 @@
     }
 
     try {
-      await store.dispatch('addDocument', fileList.value[0]);
-      message.success('Documento cadastrado com sucesso!');
+      // Envia todos os arquivos na lista
+      await store.dispatch('addDocument', fileList.value);
+      message.success('Documentos cadastrados com sucesso!');
       setTimeout(() => {
         router.push('/TelaDocumentos');
       }, 2000);
     } catch (error) {
-      console.error('Erro ao enviar o documento:', error);
+      console.error('Erro ao enviar os documentos:', error);
     }
   };
 </script>

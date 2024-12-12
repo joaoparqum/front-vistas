@@ -206,11 +206,16 @@ const store = createStore({
     },
     async addDocument(
       { dispatch }: { state: State; dispatch: (action: string, payload?: any) => Promise<any> }, 
-      file: File) 
-    {
+      files: File[]
+    ) {
       try {
         const formData = new FormData();
-        formData.append('file', file);
+    
+        // Adiciona todos os arquivos ao FormData
+        files.forEach(file => {
+          formData.append('files[]', file); // Utiliza 'files[]' para o envio de múltiplos arquivos
+        });
+    
         const token = localStorage.getItem('token');
         await axios.post('http://24.144.93.247/api/vistas/upload', formData, {
           headers: {
@@ -218,13 +223,14 @@ const store = createStore({
             'Authorization': `Bearer ${token}`
           },
         });
+    
         dispatch('fetchData');
       } catch (error: any) {
         if (error.response && error.response.data && error.response.data.message) {
           throw new Error(error.response.data.message);
         }
       }
-    },
+    },    
   },
   getters: {
     flightData: (state: State) => state.data,
