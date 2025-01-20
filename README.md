@@ -1,6 +1,6 @@
 # Vistas Explodidas - Front-end | Vue.Js
 
-![Captura de tela 2024-10-25 115317](https://github.com/user-attachments/assets/565c7e92-31ee-41db-8b45-6b1741bccfa3)
+![Image](https://github.com/user-attachments/assets/7da1e451-c471-4bcc-a72d-4aa1bbe6a10c)
 
 # Vue 3 + TypeScript + Vite
 
